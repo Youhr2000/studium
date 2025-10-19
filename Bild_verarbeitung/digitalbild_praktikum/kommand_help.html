@@ -1,0 +1,10323 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Interaktives Bildverarbeitungssystem</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"></HEAD
+><BODY
+CLASS="ARTICLE"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="ARTICLE"
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="TITLE"
+><A
+NAME="AEN2"
+>Interaktives Bildverarbeitungssystem</A
+></H1
+><H3
+CLASS="AUTHOR"
+><A
+NAME="AEN4"
+>Martin Weigert</A
+></H3
+><DIV
+><DIV
+CLASS="ABSTRACT"
+><P
+></P
+><A
+NAME="AEN10"
+></A
+><P
+>Dieses Dokument beschreibt die Kommandos eines interaktiven
+	Bildverarbeitungssystems. Hinweise können an
+	<CODE
+CLASS="EMAIL"
+>&#60;<A
+HREF="mailto:weigert@b-tu.de"
+>weigert@b-tu.de</A
+>&#62;</CODE
+> gesendet werden.</P
+><P
+></P
+></DIV
+></DIV
+><HR></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Inhaltsverzeichnis</B
+></DT
+><DT
+>1. <A
+HREF="#AEN13"
+>Bildein-/ausgabe</A
+></DT
+><DD
+><DL
+><DT
+>1.1. <A
+HREF="#PICREAD"
+>picread - Laden von Bildern</A
+></DT
+><DT
+>1.2. <A
+HREF="#PICWRITE"
+>picwrite - Speichern eines Bildes</A
+></DT
+><DT
+>1.3. <A
+HREF="#CAPTURE"
+>capture - Bild von einer Kamera holen</A
+></DT
+><DT
+>1.4. <A
+HREF="#SCAN"
+>scan - Bild von einer TWAIN-Schnittstelle holen</A
+></DT
+></DL
+></DD
+><DT
+>2. <A
+HREF="#AEN142"
+>Anzeigefunktionen</A
+></DT
+><DD
+><DL
+><DT
+>2.1. <A
+HREF="#SHOW"
+>show - Bildanzeige</A
+></DT
+><DT
+>2.2. <A
+HREF="#HISTOGRAF"
+>histograf - Anzeige der Grauwertverteilung</A
+></DT
+><DT
+>2.3. <A
+HREF="#PROFIL"
+>profil - Darstellung von Grauwertprofilen</A
+></DT
+></DL
+></DD
+><DT
+>3. <A
+HREF="#AEN234"
+>Grauwerttransformationen</A
+></DT
+><DD
+><DL
+><DT
+>3.1. <A
+HREF="#HISTOGRAMM"
+>histogramm - Bestimmung der Grauwertverteilung</A
+></DT
+><DT
+>3.2. <A
+HREF="#AEN244"
+>coocur - Darstellung der Coocurence-Matrix
+	(Paarh&auml;ufigkeit)</A
+></DT
+><DT
+>3.3. <A
+HREF="#GWM"
+>gwm - Grauwertmanipulation</A
+></DT
+><DT
+>3.4. <A
+HREF="#LUTAP"
+>lutap - Anwenden einer Look-up-table auf ein Bild</A
+></DT
+></DL
+></DD
+><DT
+>4. <A
+HREF="#AEN349"
+>Bildfilterung mittels lokaler Operatoren</A
+></DT
+><DD
+><DL
+><DT
+>4.1. <A
+HREF="#BILAT"
+>bilat - Bilateralfilter</A
+></DT
+><DT
+>4.2. <A
+HREF="#FILTER"
+>filter - Faltungsoperatoren</A
+></DT
+><DT
+>4.3. <A
+HREF="#SHARP"
+>sharp - Bandpassfilter zur Bildverbesserung</A
+></DT
+><DT
+>4.4. <A
+HREF="#SEPFILTER"
+>sepfilter - 1D-Filter f&uuml;r 2D-Filterung</A
+></DT
+><DT
+>4.5. <A
+HREF="#ITP"
+>itp - Approximation eines idealen Tiefpasses</A
+></DT
+><DT
+>4.6. <A
+HREF="#IIR"
+>iir - Rekursiver Filter</A
+></DT
+><DT
+>4.7. <A
+HREF="#GABOR"
+>gabor - Gabor-Filter</A
+></DT
+><DT
+>4.8. <A
+HREF="#RANG"
+>rang - Rangordnungsfilter</A
+></DT
+><DT
+>4.9. <A
+HREF="#SPOT"
+>spot - Finden von kleinen hellen Bildbereichen</A
+></DT
+><DT
+>4.10. <A
+HREF="#STREU"
+>streu - Streuung in einem Bildfenster</A
+></DT
+><DT
+>4.11. <A
+HREF="#AEN777"
+>skelet - Skelettierung eines Binärbildes</A
+></DT
+><DT
+>4.12. <A
+HREF="#MORPHO"
+>morpho - Morphologische Filter f&uuml;r Bin&auml;rbilder</A
+></DT
+><DT
+>4.13. <A
+HREF="#FILLHOLES"
+>fillholes - Objektl&ouml;cher auff&uuml;llen</A
+></DT
+></DL
+></DD
+><DT
+>5. <A
+HREF="#DIFFUSIONSFILTER"
+>Diffusionsfilter</A
+></DT
+><DD
+><DL
+><DT
+>5.1. <A
+HREF="#DIFFUSION"
+>diffusion - Linearer isotroper Diffusionsfilter</A
+></DT
+><DT
+>5.2. <A
+HREF="#DIFFUSION2"
+>diffusion2 - Nichtlinearer isotroper Diffusionsfilter</A
+></DT
+><DT
+>5.3. <A
+HREF="#DIFFUSION3"
+>diffusion3 - Nichtlinearer anisotroper Diffusionsfilter</A
+></DT
+></DL
+></DD
+><DT
+>6. <A
+HREF="#FFT"
+>FFT-Anwendung auf Bilddaten</A
+></DT
+><DD
+><DL
+><DT
+>6.1. <A
+HREF="#ZUSCHNITT"
+>zuschnitt - Quadratischer Zuschnitt eines Bildes auf die
+	Gr&ouml;&szlig;e 2&circ;n</A
+></DT
+><DT
+>6.2. <A
+HREF="#AEN916"
+>fftw3 - Bildtransformation in den Fourier-Raum</A
+></DT
+><DT
+>6.3. <A
+HREF="#FFTW3_FILTER"
+>fftw3_filter - Filterung eines Bildes im Frequenzbereich</A
+></DT
+><DT
+>6.4. <A
+HREF="#SPEKABSTAND"
+>spekabstand - Abstandsbestimmung von Nebenmaxima</A
+></DT
+></DL
+></DD
+><DT
+>7. <A
+HREF="#AEN981"
+>Arithmetische und logische Operationen</A
+></DT
+><DD
+><DL
+><DT
+>7.1. <A
+HREF="#ADD"
+>add - Punktweise Addition zweier Bilder</A
+></DT
+><DT
+>7.2. <A
+HREF="#SUB"
+>sub - Punktweise Subtraktion zweier Bilder</A
+></DT
+><DT
+>7.3. <A
+HREF="#SHAD"
+>shad - Shading-Korrektur</A
+></DT
+><DT
+>7.4. <A
+HREF="#FOLGE"
+>folge - Punktoperator mit mehreren Bildern</A
+></DT
+><DT
+>7.5. <A
+HREF="#BINM"
+>binm - Binarisieren eines Grauwertbildes</A
+></DT
+><DT
+>7.6. <A
+HREF="#ADABIN"
+>adabin - Adaptive Binarisierung</A
+></DT
+><DT
+>7.7. <A
+HREF="#VERK"
+>verk - Punktweise logische Verkn&uuml;pfung</A
+></DT
+></DL
+></DD
+><DT
+>8. <A
+HREF="#AEN1208"
+>Weitere Bildmanipulationen</A
+></DT
+><DD
+><DL
+><DT
+>8.1. <A
+HREF="#EXTEND"
+>extend - Symmetrische Randbelegung</A
+></DT
+><DT
+>8.2. <A
+HREF="#TILE"
+>tile - Kachelung eines Bildes</A
+></DT
+><DT
+>8.3. <A
+HREF="#RASTER"
+>raster - Einteilung eines Bildes in Sektoren</A
+></DT
+><DT
+>8.4. <A
+HREF="#RESAMPLING"
+>resampling - Skalierung eines Bildes</A
+></DT
+><DT
+>8.5. <A
+HREF="#DITHER"
+>dither - Zufallsdithering eines Grauwertbildes</A
+></DT
+><DT
+>8.6. <A
+HREF="#SALTPEPPER"
+>saltpepper - Impulsrauschen auf ein Bild legen</A
+></DT
+></DL
+></DD
+><DT
+>9. <A
+HREF="#AEN1325"
+>Pixelklassifizierung und Bildsegmentierung</A
+></DT
+><DD
+><DL
+><DT
+>9.1. <A
+HREF="#PIXMERK"
+>pixmerk - Festlegung von  zwei Merkmale</A
+></DT
+><DT
+>9.2. <A
+HREF="#PIXKLAS"
+>pixklas - Pixelklassifikator f&uuml;r 2 Merkmale</A
+></DT
+><DT
+>9.3. <A
+HREF="#GENPIXMERK"
+>genpixmerk - Generierung von Pixelmerkmalen</A
+></DT
+><DT
+>9.4. <A
+HREF="#CLASPIXMERK"
+>claspixmerk - n-dimensionale Pixelklassifikation</A
+></DT
+><DT
+>9.5. <A
+HREF="#SHOWPIXMERK"
+>showpixmerk - Visualisierung eines Pixelmerkmals</A
+></DT
+><DT
+>9.6. <A
+HREF="#CLEARPIXMERK"
+>clearpixmerk - Löschen der Pixelmerkmale</A
+></DT
+><DT
+>9.7. <A
+HREF="#SEG"
+>seg - Segmentierung eines Bin&auml;rbildes</A
+></DT
+><DT
+>9.8. <A
+HREF="#HYSTERESE"
+>hysterese - Segmentierung und Grauwertvalidierung</A
+></DT
+><DT
+>9.9. <A
+HREF="#SEPREGION"
+>sepregion - Regionensegmentierung mittels
+	Wasserscheidetransformation</A
+></DT
+><DT
+>9.10. <A
+HREF="#JOINREGION"
+>joinregion - Verschmelzen von &uuml;bersegmentierten
+	Regionen</A
+></DT
+><DT
+>9.11. <A
+HREF="#HSREG"
+>hsreg - Farbraumsegmentierung mit H- und S-Komponente</A
+></DT
+><DT
+>9.12. <A
+HREF="#ABREG"
+>abreg - Farbraumsegmentierung mit a- und b-Komponente</A
+></DT
+><DT
+>9.13. <A
+HREF="#RAWREG"
+>rawreg - Segmentierung mit allgemeinen  Kan&auml;len</A
+></DT
+><DT
+>9.14. <A
+HREF="#DISTANCE"
+>distance - Distanztransformation eines Binärbildes</A
+></DT
+><DT
+>9.15. <A
+HREF="#OPTIMIZE"
+>optimize - Helligkeitsnormierung</A
+></DT
+></DL
+></DD
+><DT
+>10. <A
+HREF="#AEN1699"
+>Merkmalsextraktion</A
+></DT
+><DD
+><DL
+><DT
+>10.1. <A
+HREF="#MASKINFO"
+>maskinfo - Anzeige der gesetzten Merkmale</A
+></DT
+><DT
+>10.2. <A
+HREF="#SETMASK"
+>setmask - Setzen der Merkmalsmaske</A
+></DT
+><DT
+>10.3. <A
+HREF="#SAVEMASK"
+>savemask - Speichern der Merkmalsmaske</A
+></DT
+><DT
+>10.4. <A
+HREF="#LOADMASK"
+>loadmask - Laden der Merkmalsmaske</A
+></DT
+><DT
+>10.5. <A
+HREF="#MERKEX"
+>merkex - Bestimmen der Merkmale</A
+></DT
+><DT
+>10.6. <A
+HREF="#SAVEMLIST"
+>savemlist - Speichern der Merkmalsliste</A
+></DT
+><DT
+>10.7. <A
+HREF="#LOADMLIST"
+>loadmlist - Laden einer Merkmalsliste</A
+></DT
+><DT
+>10.8. <A
+HREF="#CLEARMLIST"
+>clearmlist - L&ouml;schen der Merkmalsliste</A
+></DT
+><DT
+>10.9. <A
+HREF="#APPENDMLIST"
+>appendmlist - Anh&auml;ngen an einer Merkmalsliste</A
+></DT
+><DT
+>10.10. <A
+HREF="#FILTERMLIST"
+>filtermlist - Filterung vorgegebener Merkmale</A
+></DT
+><DT
+>10.11. <A
+HREF="#MERK2D"
+>merk2d - Darstellung eines 2D-Merkmalsraumes</A
+></DT
+></DL
+></DD
+><DT
+>11. <A
+HREF="#AEN3647"
+>Objektklassifikation mit numerischen Klassifikatoren</A
+></DT
+><DD
+><DL
+><DT
+>11.1. <A
+HREF="#LEARN"
+>learn - Anlernen des Klassifikators</A
+></DT
+><DT
+>11.2. <A
+HREF="#FORGET"
+>forget - L&ouml;schen einer gelernten Klasse</A
+></DT
+><DT
+>11.3. <A
+HREF="#RECOGNIZE"
+>recognize - Erkennen von Objekten</A
+></DT
+><DT
+>11.4. <A
+HREF="#SETMMASKE"
+>setmmaske - Klassifikationsmerkmale festlegen</A
+></DT
+><DT
+>11.5. <A
+HREF="#SHOWCLASSES"
+>showclasses - Gelernte Klassen anzeigen</A
+></DT
+><DT
+>11.6. <A
+HREF="#SAVECLASSDATA"
+>saveclassdata - Sichern von gelernten Daten</A
+></DT
+><DT
+>11.7. <A
+HREF="#LOADCLASSDATA"
+>loadclassdata - Laden der gelernten Daten</A
+></DT
+><DT
+>11.8. <A
+HREF="#MARK"
+>mark - Kennzeichnung von Objekten in einem Bild</A
+></DT
+><DT
+>11.9. <A
+HREF="#EXTRACT"
+>extract - Klassifizierte Objekte extrahieren</A
+></DT
+></DL
+></DD
+><DT
+>12. <A
+HREF="#AEN3874"
+>Sonstige Kommandos</A
+></DT
+><DD
+><DL
+><DT
+>12.1. <A
+HREF="#KORREL"
+>korrel - Korrelationsbild mit einem Muster</A
+></DT
+><DT
+>12.2. <A
+HREF="#FOCUS"
+>focus - Ermittlung eines Sch&auml;rfeparameters</A
+></DT
+><DT
+>12.3. <A
+HREF="#COPY"
+>copy - Bild kopieren</A
+></DT
+><DT
+>12.4. <A
+HREF="#DEL"
+>del - Bilder löschen</A
+></DT
+><DT
+>12.5. <A
+HREF="#INFO"
+>info - Anzeige von Bildinformationen</A
+></DT
+><DT
+>12.6. <A
+HREF="#BEEP"
+>beep - Akustisches Signal</A
+></DT
+><DT
+>12.7. <A
+HREF="#HELP"
+>? - Kurzhilfe</A
+></DT
+><DT
+>12.8. <A
+HREF="#QUIT"
+>quit - Programm beenden</A
+></DT
+></DL
+></DD
+><DT
+>13. <A
+HREF="#AEN3955"
+>Komplexe Bildverarbeitungsbeispiele</A
+></DT
+><DD
+><DL
+><DT
+>13.1. <A
+HREF="#ANHANG_SEG"
+>Segmentierungsbeispiele</A
+></DT
+><DD
+><DL
+><DT
+>13.1.1. <A
+HREF="#AEN3960"
+>Segmentierung eines Grauwertbildes mittels
+	  Wasserscheidetransformation</A
+></DT
+><DT
+>13.1.2. <A
+HREF="#AEN3964"
+>Farbsegmentierung mit unterschiedlichen Farbmodellen</A
+></DT
+></DL
+></DD
+><DT
+>13.2. <A
+HREF="#AEN3967"
+>Merkmalsextraktion und Objektselektierung</A
+></DT
+><DD
+><DL
+><DT
+>13.2.1. <A
+HREF="#AEN3969"
+>Objektsegmentierung und Merkmalsextraktion</A
+></DT
+><DT
+>13.2.2. <A
+HREF="#AEN3973"
+>Objektmerkmale auf das gesamte Bild anwenden</A
+></DT
+><DT
+>13.2.3. <A
+HREF="#AEN3977"
+>Markierung von Objekten</A
+></DT
+><DT
+>13.2.4. <A
+HREF="#AEN3981"
+>Objekte als Teilbilder speichern</A
+></DT
+></DL
+></DD
+><DT
+>13.3. <A
+HREF="#ANHANG_KLASS"
+>Klassifikationsbeispiele</A
+></DT
+><DD
+><DL
+><DT
+>13.3.1. <A
+HREF="#AEN3989"
+>Anlernen mittels Merkmalslisten</A
+></DT
+><DT
+>13.3.2. <A
+HREF="#AEN3992"
+>Anlernen mittel Bildvorlagen</A
+></DT
+><DT
+>13.3.3. <A
+HREF="#AEN3995"
+>Klassifikation von Objekten aus einer Merkmalsliste</A
+></DT
+><DT
+>13.3.4. <A
+HREF="#AEN3998"
+>Klassifikation von Objekten aus einer Bildvorlage</A
+></DT
+></DL
+></DD
+></DL
+></DD
+></DL
+></DIV
+><DIV
+CLASS="SECT1"
+><H2
+CLASS="SECT1"
+><A
+NAME="AEN13"
+>1. Bildein-/ausgabe</A
+></H2
+><DIV
+CLASS="SECT2"
+><H3
+CLASS="SECT2"
+><A
+NAME="PICREAD"
+>1.1. picread - Laden von Bildern</A
+></H3
+><P
+>Laden von Bilddateien. Wenn statt dem Dateinamen ein '*' angegeben
+wird, &ouml;ffnet sich ein
+	Dialogfenster f&uuml;r die Dateiauswahl. Bei Angabe nur einer
+Bildnummer wird ein 24-Bit Farbbild automatisch in ein	Grauwertbild umgewandelt. 
+	<P
+><B
+CLASS="COMMAND"
+>picread</B
+>  {<TT
+CLASS="REPLACEABLE"
+><I
+>Dateiname</I
+></TT
+> | *}  <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+> </P
+>
+	<DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN26"
+></A
+><P
+><B
+>Beispiel 1. </B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>picread ergeb.bmp 0</PRE
+><PRE
+CLASS="PROGRAMLISTING"
+>picread 5</PRE
+></DIV
+>
+      </P
+><P
+>Ein gespeichertes Farbbild kann beim Laden in
+	verschiedene Farbmodell zerlegt werden. Die Komponenten sind
+	als separate Grauwertbilder unter den angegebenen Nummern dann
+	verf&uuml;gbar.
+      <P
+><B
+CLASS="COMMAND"
+>picread</B
+>  {<TT
+CLASS="REPLACEABLE"
+><I
+>Dateiname</I
+></TT
+> | *} {rgb | hsv | lab | xyz}  <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer1_r_h</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer2_g_s</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer3_b_v</I
+></TT
+> </P
+>
+	<P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>rgb hsv lab xyz</DT
+><DD
+><P
+></P
+><UL
+><LI
+><P
+>rgb: Rot-Gr&uuml;n-Blau-Farbmodell</P
+></LI
+><LI
+><P
+>hsv: Hue-Saturation-Value-Farbmodell</P
+></LI
+><LI
+><P
+>lab: Lab-Farbmodell</P
+></LI
+><LI
+><P
+>xyz: XYZ-Farbmodell</P
+></LI
+></UL
+></DD
+></DL
+></DIV
+>
+	<DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN61"
+></A
+><P
+><B
+>Beispiel 2. </B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>picread zellbild.bmp rgb 0 1 2</PRE
+></DIV
+>
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="PICWRITE"
+>1.2. picwrite - Speichern eines Bildes</A
+></H3
+><P
+>Speichern von Bildern als 8-Bit Grauwertbilder. Wird ein '*' statt eines
+	Dateinamen angegeben, wird ein Dialogfenster ge&ouml;ffnet.
+      <P
+><B
+CLASS="COMMAND"
+>picwrite</B
+>  {<TT
+CLASS="REPLACEABLE"
+><I
+>Dateiname</I
+></TT
+> | *}  <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+> </P
+>
+	<DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN75"
+></A
+><P
+><B
+>Beispiel 3. </B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>picwrite ergeb.bmp 0</PRE
+><PRE
+CLASS="PROGRAMLISTING"
+>picwrite 5</PRE
+></DIV
+>
+      </P
+><P
+>Drei Grauwertbilder werden als Komponenten zu einem 24-Bit Farbbild
+	zusammengef&uuml;gt. Je nach gew&auml;hlten Farbmodell werden die
+	Grauwertbilder als RGB- oder HSV-Komponenten interpretiert.   
+	<P
+><B
+CLASS="COMMAND"
+>picwrite</B
+>  {<TT
+CLASS="REPLACEABLE"
+><I
+>Dateiname</I
+></TT
+> | *} {rgb | hsv}  <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer1_r_h</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer2_g_s</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer3_b_v</I
+></TT
+> </P
+>
+	<P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>rgb hsv</DT
+><DD
+><P
+></P
+><UL
+><LI
+><P
+>rgb: Rot-Gr&uuml;n-Blau-Farbmodell</P
+></LI
+><LI
+><P
+>hsv: Hue-Saturation-Value-Farbmodell</P
+></LI
+></UL
+></DD
+></DL
+></DIV
+>
+	<DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN104"
+></A
+><P
+><B
+>Beispiel 4. </B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>picwrite bild.bmp rgb 0 1 2</PRE
+><PRE
+CLASS="PROGRAMLISTING"
+>picwrite bild2.bmp hsv 7 5 3</PRE
+></DIV
+>
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="CAPTURE"
+>1.3. capture - Bild von einer Kamera holen</A
+></H3
+><P
+>Mittels einer Framegrabberkarte k&ouml;nnen Bilder von einer
+	Standardkamera  eingelesen werden. Die Kartenunterst&uuml;tzung ist
+plattformabh&auml;ngig.  Bei Angabe einer Bildnummer wird
+	ein Grauwertbild gespeichert. Bei Verwendung einer Farbkamera wird das
+	Bild automatisch in ein Grauwertbild  umgewandelt. Farbbilder
+	k&ouml;nnen durch Angabe von drei Bildnummern in den RGB-Komponenten
+	gespeichert werden.  
+	<P
+><B
+CLASS="COMMAND"
+>capture</B
+>  {<TT
+CLASS="REPLACEABLE"
+><I
+>Bildnr_grau</I
+></TT
+> | <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnr_rot</I
+></TT
+>} [<TT
+CLASS="REPLACEABLE"
+><I
+>Bildnr_gruen</I
+></TT
+>] [<TT
+CLASS="REPLACEABLE"
+><I
+>Bildnr_blau</I
+></TT
+>]</P
+>
+	<DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN122"
+></A
+><P
+><B
+>Beispiel 5. RGB-Farbbild von einer Kamera lesen</B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>capture 0 1 2</PRE
+></DIV
+>
+	Die Konfiguration der Framegrabberkarte erfolgt durch die Datei camera.cfg.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="SCAN"
+>1.4. scan - Bild von einer TWAIN-Schnittstelle holen</A
+></H3
+><P
+>Bilder k&ouml;nnen von einem Ger&auml;t, dass die TWAIN-Schnittstelle
+	unterst&uuml;tzt geholt  werden. Wird nur eine Bildnummer  angegeben,
+	wird ein Farbscan  automatisch in ein Grauwertbild
+	umgewandelt. Ansonsten werden die  Farbbilder durch die Angabe von drei
+	Bildnummern in  den RGB-Komponenten gespeichert.  
+	<P
+><B
+CLASS="COMMAND"
+>scan</B
+>  {<TT
+CLASS="REPLACEABLE"
+><I
+>Bildnr_grau</I
+></TT
+> | <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnr_rot</I
+></TT
+>} [<TT
+CLASS="REPLACEABLE"
+><I
+>Bildnr_gruen</I
+></TT
+>] [<TT
+CLASS="REPLACEABLE"
+><I
+>Bildnr_blau</I
+></TT
+>]</P
+>
+	<DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN139"
+></A
+><P
+><B
+>Beispiel 6. Grauwertbild von einem TWAIN-Scanner lesen</B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>scan 3</PRE
+></DIV
+>
+      </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT1"
+><HR><H2
+CLASS="SECT1"
+><A
+NAME="AEN142"
+>2. Anzeigefunktionen</A
+></H2
+><DIV
+CLASS="SECT2"
+><H3
+CLASS="SECT2"
+><A
+NAME="SHOW"
+>2.1. show - Bildanzeige</A
+></H3
+><P
+>Es können 8-Bit Grauwertbildern und 24 Bit
+	Farbbilder angezeigt werden. Weiterhin können Grauwertbilder im
+	Falschfarbenmodus dargestellt werden.</P
+><P
+><B
+CLASS="COMMAND"
+>show</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>  [0 | 1 | 2]</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>0 1 2</DT
+><DD
+><P
+></P
+><UL
+><LI
+><P
+>0: 8-Bit Grauwertdarstellung</P
+></LI
+><LI
+><P
+>1: Falschfarbendarstellung (Thermoskala)</P
+></LI
+><LI
+><P
+>2: Falschfarbendarstellung (Zufallswerte)</P
+></LI
+></UL
+></DD
+></DL
+></DIV
+><P
+>Der Darstellungsmodus ist in der Standardeinstellung auf 0
+	eingestellt. Eine &Auml;nderung bleibt bis zur n&auml;chsten
+	&Auml;nderung aktiv. Mit der rechten Maustaste kann das Bild in der
+	jeweiligen Darstellungsform des Farbmodus  im BMP-Format gespeichert
+	werden.</P
+><P
+><B
+CLASS="COMMAND"
+>show</B
+>  {rgb | hsv}  <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnr_r_h</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnr_g_s</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnr_b_v</I
+></TT
+> </P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN178"
+></A
+><P
+><B
+>Beispiel 7. Anzeige eines 24-Bit RGB-Farbbildes</B
+></P
+><P
+>Die Rot-, Gr&uuml;n- und Blau-Auszüge des Farbbildes sind die
+	  Bildnummern 0 1 2</P
+><PRE
+CLASS="PROGRAMLISTING"
+>show rgb 0 1 2</PRE
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>rgb hsv</DT
+><DD
+><P
+></P
+><UL
+><LI
+><P
+>rgb: Rot-Gr&uuml;n-Blau-Farbmodell</P
+></LI
+><LI
+><P
+>hsv: Hue-Saturation-Value-Farbmodell</P
+></LI
+></UL
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="HISTOGRAF"
+>2.2. histograf - Anzeige der Grauwertverteilung</A
+></H3
+><P
+>Neben der Anzeige der Grauwertverteilung kann eine st&uuml;ckweise
+	lineare &Uuml;bertragungsfunktion eingegeben werden.</P
+><P
+><B
+CLASS="COMMAND"
+>histograf</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>  [0 | 1]</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>0 1</DT
+><DD
+><P
+></P
+><UL
+><LI
+><P
+>0: Standardanzeige der Grauwertverteilung</P
+></LI
+><LI
+><P
+>1: Grauwert 0 (Schwarz) wird nicht
+berücksichtigt. Schwarze Aussenr&auml;nder werden bei der Histogrammdarstellung
+nicht mit einbezogen.</P
+></LI
+></UL
+></DD
+></DL
+></DIV
+><P
+>Mittels Kursortasten -&gt; und &lt;- kann die
+	Binarisierungsschwelle (gr&uuml;ner Balken) verschoben werden. Zu
+	Beginn entspricht der Schwellwert dem Mittelwert der
+	Grauwertverteilung. Die LUT kann st&uuml;ckweise linear als Polygonzug 
+eingegeben und mittels Schalter angezeigt werden.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="PROFIL"
+>2.3. profil - Darstellung von Grauwertprofilen</A
+></H3
+><P
+>Anzeige eines Bildes im Grauwertmodus mit Zusatzfunktionen.</P
+><P
+><B
+CLASS="COMMAND"
+>profil</B
+>  {schnitt | point | integral}  <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+> </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>schnitt point integral</DT
+><DD
+><P
+></P
+><UL
+><LI
+><P
+>schnitt: Mit der linken Maustaste werden die Anfangs
+		  und Endpunkte des Schnittes festgelegt. In der
+		  Profildarstellung wird die Binarisierungsschwelle als grüne
+		  Linie eingezeichnet. Diese kann mit der linken Maustaste
+		  horizontal verschoben werden. Mit der rechten
+		  Maustaste k&ouml;nnen das Profil und das Bild mit der
+		  Schnittgeraden jeweils im BMP-Format gespeichert werden.</P
+></LI
+><LI
+><P
+>point: Speichern von Punktkoordinaten eines
+		  Rechteckbereiches in   einem Bild. Die Koordinaten werden mit
+		  der linken Maustaste  &uuml;bernommen. Die rechte Maustaste
+		  erm&ouml;glicht eine Speicherung des Bildes und beendet die
+		  Eingabe. Die Koordinaten werden in einer Datei 
+		  gespeichert  (z.B. f&uuml;r die Festlegung der Grenzen zu
+		  2D-Pixelklassifikation mit dem Kommando <A
+HREF="#PIXKLAS"
+>pixklas</A
+>).</P
+></LI
+><LI
+><P
+>integral: Anzeige des x- und y-Integralprofils eines
+		Bildes</P
+></LI
+></UL
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="SECT1"
+><HR><H2
+CLASS="SECT1"
+><A
+NAME="AEN234"
+>3. Grauwerttransformationen</A
+></H2
+><P
+>Funktionen zur Erstellung von Grauwert&uuml;bertragungsfunktionen und
+      deren Anwendung zur Transformation von Grauwertverteilungen.</P
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="HISTOGRAMM"
+>3.1. histogramm - Bestimmung der Grauwertverteilung</A
+></H3
+><P
+>Nach diesem Kommandoaufruf steht die H&auml;ufigkeit der Grauwerte
+	zur Verf&uuml;gung. Weiterhin wird der Mittelwert und die Streuung der
+	Verteilung bestimmt.</P
+><P
+><B
+CLASS="COMMAND"
+>histogramm</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+> </P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="AEN244"
+>3.2. coocur - Darstellung der Coocurence-Matrix
+	(Paarh&auml;ufigkeit)</A
+></H3
+><P
+>Das Ergebnis der Paarh&auml;ufigkeitsmatix wird als Bild in der
+	Gr&ouml;sse 256 x 256 x 8 Bit gespeichert.</P
+><P
+><B
+CLASS="COMMAND"
+>coocur</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>  {s|w|d}  <TT
+CLASS="REPLACEABLE"
+><I
+>Abstand</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Ergebnisbildnummer</I
+></TT
+> </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>s w d</DT
+><DD
+><P
+>Legt die senkrechte, waagerechte oder diagonale Nachbarschaft
+	    fest.</P
+></DD
+><DT
+><CODE
+CLASS="PARAMETER"
+>Abstand</CODE
+></DT
+><DD
+><P
+>Abstand in Bildpunkten vom Nachbarn.</P
+></DD
+></DL
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN266"
+></A
+><P
+><B
+>Beispiel 8. Bildung der Coocurence-Matrix (als Bild 3) aus dem Bild 1 in
+	  senkrechter  Nachbarschaft mit einem Nachbarschaftsabstand von 4
+	  Bildpunkten.</B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>coocur 1 w 4 3</PRE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="GWM"
+>3.3. gwm - Grauwertmanipulation</A
+></H3
+><P
+>Mit dieser Funktion k&ouml;nnen verschiedene Verfahren der
+	Bestimmung der Grauwert&uuml;bertragungsfunktion verwendet werden. Das
+	Ergebnis wird in einer Look-up-Table abgelegt.Das Bild wird aber noch
+	nicht bearbeitet</P
+><P
+><B
+CLASS="COMMAND"
+>gwm</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Punktoperator</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>  {<TT
+CLASS="REPLACEABLE"
+><I
+>...Parameter...</I
+></TT
+>}</P
+><DIV
+CLASS="TABLE"
+><A
+NAME="AEN280"
+></A
+><P
+><B
+>Tabelle 1. Parameter</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL
+WIDTH="113"><COL><COL><THEAD
+><TR
+><TH
+>Punktoperator</TH
+><TH
+>Parameter</TH
+><TH
+>Beschreibung</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>gleich1</TD
+><TD
+>ohne Parameter</TD
+><TD
+>Histogrammausgleich</TD
+></TR
+><TR
+><TD
+>gleich2</TD
+><TD
+>ohne Parameter</TD
+><TD
+>Histogrammausgleich mit Hintergrundkompensation</TD
+></TR
+><TR
+><TD
+>neg</TD
+><TD
+>ohne Parameter</TD
+><TD
+>Grauwertinvertierung</TD
+></TR
+><TR
+><TD
+>lin</TD
+><TD
+>Untergrenze Obergrenze</TD
+><TD
+>Lineare Streckung zwischen Unter- und Obergrenze</TD
+></TR
+><TR
+><TD
+>autolin</TD
+><TD
+>ohne Parameter</TD
+><TD
+>automatische Suche der Unter- und Obergrenze f&uuml;r
+		lineare Streckung</TD
+></TR
+><TR
+><TD
+>gamma</TD
+><TD
+>Faktor</TD
+><TD
+>Gammakorrektur nach der Formel: GWneu =
+		GWalt&circ;Faktor</TD
+></TR
+><TR
+><TD
+>inter</TD
+><TD
+>Untergrenze Obergrenze</TD
+><TD
+>im Intervall Unter- bis Obergrenze werden alle Grauwerte
+		auf Weiss gesetzt</TD
+></TR
+><TR
+><TD
+>normal</TD
+><TD
+>Faktor</TD
+><TD
+>lineare Streckung im
+	      Bereich von E(X) &plusmn; Faktor * SQRT(D(X)). Die
+	      Grauwertverteilung wird als normalverteilt angenommen.</TD
+></TR
+><TR
+><TD
+>aequi</TD
+><TD
+>Stufenzahl Untergrenze Obergrenze</TD
+><TD
+>&Auml;quidensiden &uuml;ber den ganzen Bereich
+	      oder zwischen Ober- und Untergrenze.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN326"
+></A
+><P
+><B
+>Beispiel 9. Im Bild 0 soll zwischen den Grauwerten 30 und 120 eine lineare
+	  Streckung erfolgen  </B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>gwm lin 0 30 120</PRE
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN329"
+></A
+><P
+><B
+>Beispiel 10. Im Bild 1 soll eine Gamma-Korrektur mit dem Faktor 0.35
+	  erfolgen.</B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>gwm gamma 1 0.35</PRE
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN332"
+></A
+><P
+><B
+>Beispiel 11. Der gesamte Grauwertbereich des Bildes 2 soll auf 10 Abstufungen
+	reduziert werden</B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>gwm aequi 2 10</PRE
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN335"
+></A
+><P
+><B
+>Beispiel 12. Der Grauwertbereich zwischen 50 und 200 des Bildes 4 soll in 16
+	  Abstufungen dargestellt werden</B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>gwm aequi 4 16 50 200</PRE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="LUTAP"
+>3.4. lutap - Anwenden einer Look-up-table auf ein Bild</A
+></H3
+><P
+>Nach der Bestimmung der Grauwert&uuml;bertragungsfunktion durch das
+	Kommando <A
+HREF="#GWM"
+>gwm</A
+> wird das Bild erst durch Aufruf
+	dieser Funktion ver&auml;ndert.</P
+><P
+><B
+CLASS="COMMAND"
+>lutap</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>  [<TT
+CLASS="REPLACEABLE"
+><I
+>Ergebnisbildnummer</I
+></TT
+>]</P
+><P
+>Ohne Angabe einer Zielbildnummer wird das Originalbild
+	überschrieben, ansonsten wird ein neues Bild angelegt. </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT1"
+><HR><H2
+CLASS="SECT1"
+><A
+NAME="AEN349"
+>4. Bildfilterung mittels lokaler Operatoren</A
+></H2
+><DIV
+CLASS="SECT2"
+><H3
+CLASS="SECT2"
+><A
+NAME="BILAT"
+>4.1. bilat - Bilateralfilter</A
+></H3
+><P
+>Gl&auml;ttung von Fl&auml;chen bei gleichzeitigem Erhalt von Kanten
+(Selektiver Gl&auml;ttungsfilter)</P
+><P
+><B
+CLASS="COMMAND"
+>bilat</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Fenstergr&ouml;sse</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>sigmaD</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>sigmaR</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>  [<TT
+CLASS="REPLACEABLE"
+><I
+>Ergebnisbildnummer</I
+></TT
+>]</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>sigmaD</DT
+><DD
+><P
+>Streuung in der Domainfilterung</P
+></DD
+></DL
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>sigmaR</DT
+><DD
+><P
+>Streuung in der Rangefilterung</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="FILTER"
+>4.2. filter - Faltungsoperatoren</A
+></H3
+><P
+>F&uuml;r die Filterung von Bildern mittels Faltungsmaske stehen
+	Fenstergr&ouml;sse von 3x3, 5x5 und 7x7 Masken zur Verf&uuml;gung. Die
+	Koeffizienten dieser Masken sind in den Dateien
+	<TT
+CLASS="FILENAME"
+>fil_ko3.dat</TT
+>, <TT
+CLASS="FILENAME"
+>fil_ko5.dat</TT
+> und
+	<TT
+CLASS="FILENAME"
+>fil_ko7.dat</TT
+> als ASCII-Texte gespeichert. 
+	Die Eintr&auml;ge f&uuml;r ein Filter in dieser Datei haben folgende
+	Struktur:</P
+><P
+></P
+><UL
+><LI
+><P
+>Name des Filters</P
+></LI
+><LI
+><P
+>Koeffizientenwerte (ganze Zahlen) </P
+></LI
+><LI
+><P
+>Summe der Koeffizienten als Normierungsfaktor </P
+></LI
+><LI
+><P
+>Offset (additiver Anteil)</P
+></LI
+></UL
+><P
+><B
+CLASS="COMMAND"
+>filter</B
+>  {3 | 5 | 7}  <TT
+CLASS="REPLACEABLE"
+><I
+>Filterart</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>  [<TT
+CLASS="REPLACEABLE"
+><I
+>Ergebnisbildnummer</I
+></TT
+>]</P
+><P
+>Folgende Filterarten stehen zur Verfügung:</P
+><DIV
+CLASS="TABLE"
+><A
+NAME="AEN404"
+></A
+><P
+><B
+>Tabelle 2. Filterarten</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL
+WIDTH="113"><COL
+WIDTH="38"
+ALIGN="CENTER"><COL
+WIDTH="38"
+ALIGN="CENTER"><COL
+WIDTH="38"
+ALIGN="CENTER"><COL
+WIDTH="1*"><THEAD
+><TR
+><TH
+>Filtername</TH
+><TH
+>3</TH
+><TH
+>5</TH
+><TH
+>7</TH
+><TH
+>Beschreibung</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>mittel</TD
+><TD
+>X</TD
+><TD
+>X</TD
+><TD
+>X</TD
+><TD
+>Mittelwertfilter</TD
+></TR
+><TR
+><TD
+>gauss</TD
+><TD
+>X</TD
+><TD
+>X</TD
+><TD
+>X</TD
+><TD
+>Gauss/Binomial-Filter</TD
+></TR
+><TR
+><TD
+>prewitt_x</TD
+><TD
+>X</TD
+><TD
+>X</TD
+><TD
+>-</TD
+><TD
+>Prewitt-Filter in x-Richtung</TD
+></TR
+><TR
+><TD
+>prewitt_y</TD
+><TD
+>X</TD
+><TD
+>X</TD
+><TD
+>-</TD
+><TD
+>Prewitt-Filter in y-Richtung</TD
+></TR
+><TR
+><TD
+>prewitt_d1</TD
+><TD
+>X</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>Prewitt-Filter in 1. diagonaler Richtung</TD
+></TR
+><TR
+><TD
+>prewitt_d2</TD
+><TD
+>X</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>Prewitt-Filter in 2. diagonaler Richtung</TD
+></TR
+><TR
+><TD
+>sobel_x</TD
+><TD
+>X</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>Sobel-Filter in x-Richtung</TD
+></TR
+><TR
+><TD
+>sobel_y</TD
+><TD
+>X</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>Sobel-Filter in y-Richtung</TD
+></TR
+><TR
+><TD
+>sobel_d1</TD
+><TD
+>X</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>Sobel-Filter in 1. diagonaler Richtung</TD
+></TR
+><TR
+><TD
+>sobel_d2</TD
+><TD
+>X</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>Sobel-Filter in 2. diagonaler Richtung</TD
+></TR
+><TR
+><TD
+>laplace1</TD
+><TD
+>X</TD
+><TD
+>X</TD
+><TD
+>-</TD
+><TD
+>Laplace-Operator</TD
+></TR
+><TR
+><TD
+>laplace2</TD
+><TD
+>X</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>modifizierter Laplace-Operator</TD
+></TR
+><TR
+><TD
+>laplace3</TD
+><TD
+>X</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>modifizierter Laplace-Operator</TD
+></TR
+><TR
+><TD
+>umask1</TD
+><TD
+>X</TD
+><TD
+>X</TD
+><TD
+>-</TD
+><TD
+>Bildverschärfung basierend auf laplace1-Operator</TD
+></TR
+><TR
+><TD
+>umask2</TD
+><TD
+>X</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>Bildverschärfung basierend auf laplace2-Operator</TD
+></TR
+><TR
+><TD
+>umask3</TD
+><TD
+>X</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>Bildverschärfung basierend auf laplace3-Operator</TD
+></TR
+><TR
+><TD
+>log1</TD
+><TD
+>-</TD
+><TD
+>X</TD
+><TD
+>-</TD
+><TD
+>Laplace1 of Gausian-Operator</TD
+></TR
+><TR
+><TD
+>log2</TD
+><TD
+>-</TD
+><TD
+>X</TD
+><TD
+>-</TD
+><TD
+>Laplace2 of Gausian-Operator</TD
+></TR
+><TR
+><TD
+>dog</TD
+><TD
+>-</TD
+><TD
+>X</TD
+><TD
+>-</TD
+><TD
+>Difference of Gausian-Operator</TD
+></TR
+><TR
+><TD
+>test</TD
+><TD
+>X</TD
+><TD
+>X</TD
+><TD
+>X</TD
+><TD
+>allgemeiner Operator f&uuml;r eigene Koeffizienten</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN540"
+></A
+><P
+><B
+>Beispiel 13. Aus dem Bild 1 soll ein Kantenbild durch einen Laplace-Filter
+	  der Gr&ouml;&szlig;e 3x3 erzeugt werden. Das Ergebnis wird unter Bild
+	2 abgelegt.</B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>filter 3 laplace1 1 2</PRE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="SHARP"
+>4.3. sharp - Bandpassfilter zur Bildverbesserung</A
+></H3
+><P
+>Durch die Anwendung eines Bandpasses  werden feine Strukturen
+	betont und gleichzeitig Rauschen unterdr&uuml;ckt. Der Parameter
+	<CODE
+CLASS="PARAMETER"
+>Gewicht</CODE
+> bestimmt die Gr&ouml;&szlig;e der
+	Strukturbetonung. Der Name des Filterkernes beginnt mit "log" oder
+"dog". Die Filterkerne sind in den Filterkoeffizientendateien gespeichert. </P
+><P
+><B
+CLASS="COMMAND"
+>sharp</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Fenstergr&ouml;&szlig;e</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Filterkern</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Gewicht</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>  [<TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+>]</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN559"
+></A
+><P
+><B
+>Beispiel 14. Das Bild 1 soll durch den 5x5 LoG-Filter "log1" mit einem
+Gewicht von 0,1 nachgesch&auml;rft
+werden. Das Ergebnis wird unter Bild 2 abgelegt.</B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>sharp 5 log1 0.1 1 2</PRE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="SEPFILTER"
+>4.4. sepfilter - 1D-Filter f&uuml;r 2D-Filterung</A
+></H3
+><P
+>Eine eindimensionale Filtermaske wird nacheinander in horizontaler
+	und  vertikaler Richtung auf ein Bild angewendet. Die Anzahl der
+	  Operationen wird gegen&uuml;ber 2D-Faltungsmasken erheblich
+	reduziert. Die Koeffiziente sind in der ASCII-Datei
+	<TT
+CLASS="FILENAME"
+>sep_filter.dat</TT
+> gespeichert. Die Eintr&auml;ge
+	f&uuml;r ein Filter in dieser Datei haben folgende Struktur:</P
+><P
+></P
+><UL
+><LI
+><P
+>Name des Filters</P
+></LI
+><LI
+><P
+>Summe der Koeffizienten als Normierungsfaktor</P
+></LI
+><LI
+><P
+>Offset (additiver Anteil)</P
+></LI
+><LI
+><P
+>Koeffizientenwerte (ganze Zahlen). Da die Anzahl der
+	    Koeffizienten beliebig sein kann, wird die Liste mit dem  Zeichen
+	    <TT
+CLASS="LITERAL"
+>#</TT
+> abgeschlossen.</P
+></LI
+></UL
+><P
+><B
+CLASS="COMMAND"
+>sepfilter</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Filtername</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>  [<TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+>]</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN584"
+></A
+><P
+><B
+>Beispiel 15. Filterung mit einem separierten Gauss-Filter mit 11
+	  Koeffizienten</B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>sepfilter gauss11 0 1</PRE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="ITP"
+>4.5. itp - Approximation eines idealen Tiefpasses</A
+></H3
+><P
+>Zur Filterung wird ein idealer Tiefpass approximiert. Als Beispiel
+	eines  FIR-Filters kann die Anzahl der Koeffizienten vorgegeben
+	werden. Da  idealerweise die Anzahl ungerade sein sollte, wird bei
+	Eingabe eines  geraden Wertes der n&auml;chst kleinere ungerade Wert
+	verwendet. Der 	Filter arbeitet in gleicher Weise wie die Funktion
+	<A
+HREF="#SEPFILTER"
+>sepfilter</A
+>. Eine eindimensionale
+	Faltungsmaske wird zweimal auf das Bild angewendet. Zur Begrenzung der
+	Impulsantwort wird ein Hanning-Fenster verwendet.</P
+><P
+><B
+CLASS="COMMAND"
+>itp</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>fg</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>N</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Hanning</I
+></TT
+> </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><CODE
+CLASS="PARAMETER"
+>fg</CODE
+></DT
+><DD
+><P
+>Auf die Bildabtastung normierte Grenzfrequenz des Tiefpasses,
+	      die Werte zwischen 0 und 1 annehmen kann.</P
+></DD
+><DT
+><CODE
+CLASS="PARAMETER"
+>N</CODE
+></DT
+><DD
+><P
+>Anzahl der Koeffizienten. Diese sollten immer ungerade sein,
+	      damit es einen zentralen Bildpunkt als Bezug gibt.</P
+></DD
+><DT
+><CODE
+CLASS="PARAMETER"
+>Hanning</CODE
+></DT
+><DD
+><P
+></P
+><UL
+><LI
+><P
+>0: Hanning-Fenster ausgeschalten</P
+></LI
+><LI
+><P
+>1: Hanning-Fenster aktiv</P
+></LI
+></UL
+></DD
+></DL
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN623"
+></A
+><P
+><B
+>Beispiel 16. Das Bild mit der Nummer 2 wird mit einer Grenzfrequenz von 0.35
+	  gefiltert. Der Filter soll 7 Koeffizienten haben und die
+	  Hanning-Funktion wird als Fenster verwendet. Das Ergebnis ist das
+	  Bild mit der Nummer 4.</B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>itp 2 4 0.35 7 1</PRE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="IIR"
+>4.6. iir - Rekursiver Filter</A
+></H3
+><P
+>Zur Filterung wird ein idealer Tiefpass approximiert. Als Beispiel
+	eines  IIR-Filters kann die Anzahl der Koeffizienten vorgegeben
+	werden. Da  idealerweise die Anzahl ungerade sein sollte, wird bei
+	Eingabe eines  geraden Wertes der n&auml;chst kleinere ungerade Wert
+	verwendet. Der 	Filter arbeitet in gleicher Weise wie die Funktion
+	<A
+HREF="#SEPFILTER"
+>sepfilter</A
+>. Eine eindimensionale
+	Faltungsmaske wird zweimal auf das Bild angewendet. Zur Begrenzung der
+	Impulsantwort wird ein Hanning-Fenster verwendet.</P
+><P
+><B
+CLASS="COMMAND"
+>iir</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>ug</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>tdurch</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>og</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>tsperr</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Filterart</I
+></TT
+> </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><CODE
+CLASS="PARAMETER"
+>ug</CODE
+></DT
+><DD
+><P
+>normierte untere Grenzfrequenz (Ende des
+	      Durchlassbereiches); Wertebereich: 0,...,1</P
+></DD
+><DT
+><CODE
+CLASS="PARAMETER"
+>tdurch</CODE
+></DT
+><DD
+><P
+>minimaler Durchlasswert im Durchlassbereich ; Wertebereich:
+	      0,...,1)</P
+></DD
+><DT
+><CODE
+CLASS="PARAMETER"
+>og</CODE
+></DT
+><DD
+><P
+>normierte obere Grenzfrequenz (Beginn des
+	      Sperrbereiches); Wertebereich: 0,...,1</P
+></DD
+><DT
+><CODE
+CLASS="PARAMETER"
+>tsperr</CODE
+></DT
+><DD
+><P
+>maximaler Durchlasswert im Sperrbereich ; Wertebereich:
+	      0,...,1</P
+></DD
+><DT
+><CODE
+CLASS="PARAMETER"
+>Filterart</CODE
+></DT
+><DD
+><P
+></P
+><UL
+><LI
+><P
+>b: Butterworth-Filter</P
+></LI
+><LI
+><P
+>t1: Tschebyscheff-Filter Typ 1</P
+></LI
+></UL
+></DD
+></DL
+></DIV
+><P
+>Alle Frequenzen sind auf die Grenzfrequenz, die durch den
+	Abtastabstandes des Bildsensors festgelegt ist, normiert. Bei der
+	Festlegung der Parameter muss darauf geachtet werden, dass 
+	gilt: ug &#60; og und tdurch &#62; tsperr</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN677"
+></A
+><P
+><B
+>Beispiel 17. Ein Butterworth-Tiefpass mit einem minimalen Durchlasswert von
+	  0.9, unteren Grenzfrequenz von 0.3, einem maximalen Sperrwert von 0.2
+	  und einer oberen Grenzfrequenz von 0.4 soll auf das Bild 5 angewendet
+	werden. Das Ergebnis soll als Bild 6 gespeichert werden.</B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>iir 5 6 0.3 0.9 0.4 0.2 b</PRE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="GABOR"
+>4.7. gabor - Gabor-Filter</A
+></H3
+><P
+>Mittels Gabor-Filter k&ouml;nnen Strukturen, die bestimmte
+	spektrale Eigenschaften aufweisen, hervorgehoben werden. Eine Anwendung
+      ist die Texturanalyse.</P
+><P
+><B
+CLASS="COMMAND"
+>gabor</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Lambda</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Theta</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Phi</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Gamma</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bandbreite</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Orientierung</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+>  [<TT
+CLASS="REPLACEABLE"
+><I
+>Bildnr_Gabor-Funktion</I
+></TT
+>]</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>Lambda</DT
+><DD
+><P
+>Wellenl&auml;nge: &#62;= 2 (Standardwert: 2)</P
+></DD
+><DT
+>Theta</DT
+><DD
+><P
+>Orientierungswinkel: 0,...,360 (Standardwert: 0)</P
+></DD
+><DT
+>Phi</DT
+><DD
+><P
+>Phasenversatz: -180,...,+180 (Standardwert: 0)</P
+></DD
+><DT
+>Gamma</DT
+><DD
+><P
+>Seitenverhältnis: &#62; 0 (Standardwert: 1)</P
+></DD
+><DT
+>Bandbreite</DT
+><DD
+><P
+> Breite des Bandpasses: &#62; 0 (Standardwert: 1)</P
+></DD
+><DT
+>Orientierung</DT
+><DD
+><P
+>Anzahl der Orientierungen: &#62;= 1 (Standardwert: 1)</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="RANG"
+>4.8. rang - Rangordnungsfilter</A
+></H3
+><P
+>Rangordnungsfilter mit 3x3, 5x5 und 7x7 als
+	Fenstergr&ouml;&szlig;e. Die Ranordnung kann Werte zwischen 0 und
+	Fenstergr&ouml;&szlig;e&circ;2 - 1 annehmen.</P
+><P
+><B
+CLASS="COMMAND"
+>rang</B
+>  {3 | 5 | 7}  <TT
+CLASS="REPLACEABLE"
+><I
+>Rangordnung</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>  [<TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+>]</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN743"
+></A
+><P
+><B
+>Beispiel 18. MEDIAN-Filterung des Bildes 0 mit einem 3x3 Fenster. Das
+	  Ergebnisbild   wird unter der Nummer 1 angelegt </B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>rang 3 4 0 1</PRE
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN746"
+></A
+><P
+><B
+>Beispiel 19. MEDIAN-Filterung des Bildes 0 mit einem  5x5 Fenster. Das
+	  Ergebnisbild  wird unter der Nummer 1 angelegt </B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>rang 5 12 0 1</PRE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="SPOT"
+>4.9. spot - Finden von kleinen hellen Bildbereichen</A
+></H3
+><P
+>Suche nach lokalen Helligkeitsmaxima (Spots). Die Schwelle ist die
+	Differenz zwischen dem Mittelwert und dem GW mit Rang 8, Rang 24
+	bzw. Rang 48, d.h. dem hellsten Wert in einem 3x3, 5x5 oder 7x7
+	Fenster. Mit der Wahl des Schwellwertes kann beeinflusst werden, wie
+	stark sich die zu suchenden Bereiche von ihrer Umgebung abheben
+	m&uuml;ssen um markiert zu werden.</P
+><P
+><B
+CLASS="COMMAND"
+>spot</B
+>  {3 | 5 | 7}  <TT
+CLASS="REPLACEABLE"
+><I
+>Schwellwert</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>  [<TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+>]</P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="STREU"
+>4.10. streu - Streuung in einem Bildfenster</A
+></H3
+><P
+>Es erfolgt die Berechnung der Streuung in einem Bildfenster und
+	die Ablage des Wertes als Grauwert in einem neuen Bild. Die
+	Fenstergr&ouml;&szlig;e ist 3x3, 5x5 und 7x7 w&auml;hlbar.</P
+><P
+><B
+CLASS="COMMAND"
+>streu</B
+>  {3 | 5 | 7}  <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>  [<TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+>]</P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="AEN777"
+>4.11. skelet - Skelettierung eines Binärbildes</A
+></H3
+><P
+>In einem Binärbild werden Linien auf eine Breite von einem Pixel
+	verdünnt. Der letzte Parameter gibt den Hintergrundwert an (0: Schwarz;
+      255: Weiss)</P
+><P
+><B
+CLASS="COMMAND"
+>skelet</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+>  {0 | 255}</P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="MORPHO"
+>4.12. morpho - Morphologische Filter f&uuml;r Bin&auml;rbilder</A
+></H3
+><P
+>Mittels eines strukturierenden Elementes (SE) k&ouml;nnen
+	Bin&auml;bilder gefiltert werden. Die SE sind in der Datei
+	<TT
+CLASS="FILENAME"
+>se.dat</TT
+> mit Namen und Struktur hinterlegt.</P
+><P
+><B
+CLASS="COMMAND"
+>morpho</B
+>  {erosion | dilatation | opening | closing | edge}  <TT
+CLASS="REPLACEABLE"
+><I
+>SE-Name</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>  [<TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+>]</P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="FILLHOLES"
+>4.13. fillholes - Objektl&ouml;cher auff&uuml;llen</A
+></H3
+><P
+>In Binärbildern können Objektlöcher aufgefüllt werden. Der
+Hintergrund muss schwarz sein und die Objekte weiss.</P
+><P
+><B
+CLASS="COMMAND"
+>fillholes</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+>  {0 | 1}</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>0 1</DT
+><DD
+><P
+></P
+><UL
+><LI
+><P
+>0: (Standardeinstellung) Das Ergebnisbild enthält Objekte
+ohne Löcher.</P
+></LI
+><LI
+><P
+>1: Das Ergebnisbild enthält die aufgefüllten Löcher. </P
+></LI
+></UL
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="SECT1"
+><HR><H2
+CLASS="SECT1"
+><A
+NAME="DIFFUSIONSFILTER"
+>5. Diffusionsfilter</A
+></H2
+><P
+>Die Diffusion als Modellansatz wird für ein iteratives
+Filterverfahren verwendet. Die Helligkeitsunterschiede werden dabei als
+Konzentrationsunterschiede betrachtet. Zur Verfügung steht ein linearer
+isotroper Filter, ein nichtlinearer isotroper Filter und ein nichtlinearer
+anisotroper Filter.</P
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="DIFFUSION"
+>5.1. diffusion - Linearer isotroper Diffusionsfilter</A
+></H3
+><P
+> Dieser Filter kann als Glättungsfilter verwendet werden, wobei auch
+Kanten unscharf werden. </P
+><P
+><B
+CLASS="COMMAND"
+>diffusion</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Quellbildnummer</I
+></TT
+>  [<TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+>] [<TT
+CLASS="REPLACEABLE"
+><I
+>Iterationen</I
+></TT
+>] [<TT
+CLASS="REPLACEABLE"
+><I
+>Diffusionskoeffizient</I
+></TT
+>]</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>Iterationen</DT
+><DD
+><P
+>Anzahl der Filterdurchläufe (Standardwert ist 5)</P
+></DD
+><DT
+>Diffusionskoeffizient</DT
+><DD
+><P
+>Stärke des Diffusionseffektes (Standardwert ist 0,3)</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="DIFFUSION2"
+>5.2. diffusion2 - Nichtlinearer isotroper Diffusionsfilter</A
+></H3
+><P
+> Dieser Filter kann als Glättungsfilter verwendet werden. Die
+Filterwirkung wird mit zunehmenden Gradienten (z.B. an Kanten)
+unterdrückt. Gesteuert wird die Unterdrückung durch eine Funktion, die von den
+Parametern Lamba und kf abhängt. Lambda steuert den Gradientenbereich, der
+unterdrückt werden soll und kf steuert die Steilheit des Funktionsabfalls.</P
+><P
+><B
+CLASS="COMMAND"
+>diffusion2</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Quellbildnummer</I
+></TT
+>  [<TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+>] [<TT
+CLASS="REPLACEABLE"
+><I
+>Iterationen</I
+></TT
+>] [<TT
+CLASS="REPLACEABLE"
+><I
+>Lambda</I
+></TT
+>] [<TT
+CLASS="REPLACEABLE"
+><I
+>kf</I
+></TT
+>]</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>Iterationen</DT
+><DD
+><P
+>Anzahl der Filterdurchläufe (Standardwert ist 5)</P
+></DD
+><DT
+>Lambda</DT
+><DD
+><P
+>Bereich der Filterunterdrückung (Standardwert ist 10,0)</P
+></DD
+><DT
+>kf</DT
+><DD
+><P
+>Steilheit des Übergangsbereiches der Filterunterdrückung (Standardwert ist 5,0)</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="DIFFUSION3"
+>5.3. diffusion3 - Nichtlinearer anisotroper Diffusionsfilter</A
+></H3
+><P
+> Dieser Filter kann als Glättungsfilter verwendet werden. An den Kanten
+wird nur orthogonal zum Gradienten eine Glättung vorgenommen, d.h. eine Kante
+bleibt scharf.</P
+><P
+><B
+CLASS="COMMAND"
+>diffusion3</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Quellbildnummer</I
+></TT
+>  [<TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+>] [<TT
+CLASS="REPLACEABLE"
+><I
+>Iterationen</I
+></TT
+>] [<TT
+CLASS="REPLACEABLE"
+><I
+>k</I
+></TT
+>]</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>Iterationen</DT
+><DD
+><P
+>Anzahl der Filterdurchläufe (Standardwert ist 5)</P
+></DD
+><DT
+>k</DT
+><DD
+><P
+>Steuert die Berücksichtigung der Kante bei der Filterung
+(Standardwert ist 3,0). Je kleiner der Wert ist, je kleiner kann der Gradient
+sein, um als Kante erhalten zu bleiben. </P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="SECT1"
+><HR><H2
+CLASS="SECT1"
+><A
+NAME="FFT"
+>6. FFT-Anwendung auf Bilddaten</A
+></H2
+><P
+>Bilder werden mittels Fast-Fourier-Transformation in den Frequenzraum
+	transformiert und die spektralen Anteile ermittelt
+	bzw. modifiziert. Als Grundlage dient die Funktionsbibliothek FFTW
+      unter <A
+HREF="http:\\www.fftw.org"
+TARGET="_top"
+>http:\\www.fftw.org</A
+>.</P
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="ZUSCHNITT"
+>6.1. zuschnitt - Quadratischer Zuschnitt eines Bildes auf die
+	Gr&ouml;&szlig;e 2&circ;n</A
+></H3
+><P
+>Zur Nutzung der FFT werden die Ausgangsbilder auf die n&auml;chste
+	Gr&ouml;&szlig;e einer 2-er Potenz zugeschnitten.</P
+><P
+><B
+CLASS="COMMAND"
+>zuschnitt</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+> </P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="AEN916"
+>6.2. fftw3 - Bildtransformation in den Fourier-Raum</A
+></H3
+><P
+>Ein Bild wird in den Fourier-Raum transformiert. Die Ergebnisse
+	werden wieder als Bilder dargestellt. Der Koordinatenursprung befindet
+	sich dabei  in der Bildmitte. Das Ausgangsbild muss eine Zeilen- und
+	Spaltenzahl  sein, die sich durch eine 2-er Potenz ausdr&uuml;cken
+	l&auml;sst (z.B. 256x256  oder 512x512).</P
+><P
+><B
+CLASS="COMMAND"
+>fftw3</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnr_Real_Betrag</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnr_Imag_Phase</I
+></TT
+>  {k | t}</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>k t</DT
+><DD
+><P
+></P
+><UL
+><LI
+><P
+>k: Ergebnis liegt in kartesischer Form vor, d. h. die
+		  Ergebnisbilder stellen Real- und Imagin&auml;rteil dar</P
+></LI
+><LI
+><P
+>t: Ergebnis liegt in trigonometrischer Form vor,
+		  d. h. die Ergebnisbilder stelle Betrag und Phase dar. </P
+></LI
+></UL
+></DD
+></DL
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN939"
+></A
+><P
+><B
+>Beispiel 20. Bild 0 wird in den Fourier-Raum transformiert. Bild 1 stellt den
+	Betrag und Bild 2 die Phase dar.</B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>fftw3 0 1 2 t</PRE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="FFTW3_FILTER"
+>6.3. fftw3_filter - Filterung eines Bildes im Frequenzbereich</A
+></H3
+><P
+>Die Faltung eines Bildes mit einer Filtermaske (z.B. Kommando <A
+HREF="#FILTER"
+>filter</A
+>) wird ersetzt durch  durch eine
+	  Multiplikation im Fourier-Bereich. Als Beispiel f&uuml;r eine
+	  Filterfunktion wird ein rotationssymmetrischer Zylinder f&uuml;r eine
+	  Tiefpassfilterung  verwendet. Das Ergebnis ist dem eines idealen
+	  Tiefpasses &auml;hnlich.</P
+><P
+><B
+CLASS="COMMAND"
+>fftw3_filter</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+>  {zylinder | gauss | psf | wiener} {<TT
+CLASS="REPLACEABLE"
+><I
+>Parameter...</I
+></TT
+>}</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>zylinder gauss psf wiener</DT
+><DD
+><P
+></P
+><UL
+><LI
+><P
+>zylinder: Rotationssymmetrischer idealer Tiefpass. Der
+ Parameter ist die normierte Grenzfrequenz im Bereich 0...1.</P
+></LI
+><LI
+><P
+>gauss: Inverse Rückfaltung einer Gauss-Funktion. Der Parameter
+gibt die Steuung der Gaussfunktion an.</P
+></LI
+><LI
+><P
+>psf: Faltung des Bildes mit einer PSF-Funktion. Der Parameter ist die
+Bildnummer der PSF. Der Verlauf der PSF im Bild muss auf die Bildmitte zentriert sein.</P
+></LI
+><LI
+><P
+>wiener: Wiener-Rekonstruktion eines Bildes. Der erste
+Parameter ist das zentrierte PSF-Bild. Der zweite Parameter ist das
+Signal/Rauschverhältnis. Im Fall der Rauschfreiheit sollte der Wert 0+epsilon sein.</P
+></LI
+></UL
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="SPEKABSTAND"
+>6.4. spekabstand - Abstandsbestimmung von Nebenmaxima</A
+></H3
+><P
+>Der Abstand der ersten Nebenmaxima vom Koordinatenursprung eines
+	Betragsspektrums wird durch ein automatisches Schwellwertverfahren 
+	bestimmt. Das Ergebnis ist ein Bin&auml;rbild der verwendeten
+	Schwelle. Der Abstand zum ersten Nebenmaxima liefert einen Hinweis
+	f&uuml;r die Festlegung der Grenzfrequenz f&uuml;r eine
+	Tiefpass-Filterung. </P
+><P
+><B
+CLASS="COMMAND"
+>spekabstand</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+> </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT1"
+><HR><H2
+CLASS="SECT1"
+><A
+NAME="AEN981"
+>7. Arithmetische und logische Operationen</A
+></H2
+><P
+>In diesem Abschnitt werden verschiedene Punktoperatoren beschrieben,
+      die Bilder miteinander bildpunktweise verkn&uuml;pfen bzw. in
+      Bin&auml;rbilder umwandeln. </P
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="ADD"
+>7.1. add - Punktweise Addition zweier Bilder</A
+></H3
+><P
+>Addition zweier Bilder mit unterschiedlicher
+	Ergebnisbehandlung.</P
+><P
+><B
+CLASS="COMMAND"
+>add</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer1</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer2</I
+></TT
+>  {0 | 1} [<TT
+CLASS="REPLACEABLE"
+><I
+>Ergebnisbildnummer</I
+></TT
+>]</P
+><P
+>Wenn keine Ergebnisbildnummer angegeben wird, wird das erste Bild
+	mit dem Ergebnis überschrieben. Die Behandlung des
+	Summationsergebnisses wird durch 0 oder 1 festgelegt:</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>0 1</DT
+><DD
+><P
+></P
+><UL
+><LI
+><P
+>0: Die Ergebnisse zwischen kleinsten und
+		  gr&ouml;&szlig;ten vorkommenden Grauwert werden auf den
+		  darstellbaren Grauwertbereich normiert.</P
+></LI
+><LI
+><P
+>1: Das Ergebnis wird auf den darstellbaren Bereich
+		  begrenzt.</P
+></LI
+></UL
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="SUB"
+>7.2. sub - Punktweise Subtraktion zweier Bilder</A
+></H3
+><P
+>Subtraktion zweier Bilder mit unterschiedlicher
+	Ergebnisbehandlung.</P
+><P
+><B
+CLASS="COMMAND"
+>sub</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer1</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer2</I
+></TT
+>  {0 | 1 | 2 | 3} [<TT
+CLASS="REPLACEABLE"
+><I
+>Ergebnisbildnummer</I
+></TT
+>]</P
+><P
+>Wenn keine Ergebnisbildnummer angegeben wird, wird das erste Bild
+	mit dem Ergebnis überschrieben. Die Behandlung des
+	subtraktionsergebnisses wird durch 0, 1, 2 oder 3 festgelegt.</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>0 1 2 3</DT
+><DD
+><P
+></P
+><UL
+><LI
+><P
+>0: Nulldifferenz bei MAX_GW/2 (Offset). Das Ergebnis
+		  wird auf den max. darstellbaren Bereich begrenzt.</P
+></LI
+><LI
+><P
+>1: Normierung zwischen dem kleinsten und
+		  gr&ouml;&szlig;ten 
+		  Subtraktionsergebnis auf den darstellbaren Bereich. </P
+></LI
+><LI
+><P
+>2: Ergebnis ohne Offset und ohne
+		  &Uuml;bertragbehandlung. Hierbei kann es zu
+		  &Uuml;berl&auml;ufen im 
+		  unteren oder oberen  Grauwertbereich kommen.</P
+></LI
+><LI
+><P
+>3: Betragsbildung der Differenz</P
+></LI
+></UL
+></DD
+></DL
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN1038"
+></A
+><P
+><B
+>Beispiel 21. Bild 2 wird von Bild 1 subtrahiert. Der Differenzwert wird mit
+	  einem Offset von MAX_GW/2 (Wert 128) in den positiven Bereich
+	  verschoben. Das Differenzbild wird unter der Nummer 3
+	  abgelegt.</B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>sub 1 2 0 3</PRE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="SHAD"
+>7.3. shad - Shading-Korrektur</A
+></H3
+><P
+>F&uuml;r jeden einzelnen Bildpunkt wird eine Normierung zwischen
+	kleinsten und gr&ouml;&szlig;ten Helligkeitswert auf den darstellbaren
+	Wertebereich (0 ... 255) durchgef&uuml;hrt. Damit z.B. sind die
+	Korrektur ungleichm&auml;&szlig; ausgeleuchteter Bilder oder ein
+	Wei&szlig;abgleich bei Farbausz&uuml;gen m&ouml;glich.</P
+><P
+><B
+CLASS="COMMAND"
+>shad</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>  [<TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer-Dunkelfeld</I
+></TT
+>]  <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer-Hellfeld</I
+></TT
+> </P
+><P
+>Das Dunkel- und Hellfeld enth&auml;lt pro Bildpunkt den unteren
+	bzw. oberen Referenzwert der Helligkeit. Das Ergebnis der Korrektur
+	&uuml;berschreibt das unkorrigierte Ausgangsbild. Ohne Angabe des
+	Dunkelfeldes wird f&uuml;r alle Bildpunkte der Wert 0 verwendet.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="FOLGE"
+>7.4. folge - Punktoperator mit mehreren Bildern</A
+></H3
+><P
+>Bildfolgen k&ouml;nnen durch verschiedene Punktoperationen
+	bearbeitet werden. Ein Anwendungsbeispiel ist die Rauschminderung oder
+	Bildakkumulation.</P
+><P
+><B
+CLASS="COMMAND"
+>folge</B
+>  {mittel | median | min | max | akku}  <TT
+CLASS="REPLACEABLE"
+><I
+>Zielbild</I
+></TT
+>  [<TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer1 ... BildnummerN</I
+></TT
+>]</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>mittel median akku min max</DT
+><DD
+><P
+></P
+><UL
+><LI
+><P
+>mittel: Bildpunktweise Mittelwertbildung über alle
+		  Bilder</P
+></LI
+><LI
+><P
+>median: Bildpunktweise Sortierung der Grauwerte über alle
+		Filter. Ergebnisgrauwert ist der Wert mit mittlerem Rang</P
+></LI
+><LI
+><P
+>akku: Bildpunktweise Addition der Grauwerte. Das Ergebnis
+		  wird auf MAX_GW-1 (255) begrenzt</P
+></LI
+><LI
+><P
+>min: Kleinster Grauwert in der Folge</P
+></LI
+><LI
+><P
+>max: Größter Grauwert in der Folge</P
+></LI
+></UL
+></DD
+></DL
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN1083"
+></A
+><P
+><B
+>Beispiel 22. Über die Bilder 1 bis 10 soll der Mittelwert gebildet
+	  werden. Das Ergebnis wird unter Bild 0 abgelegt.</B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>folge mittel 0 1 2 3 4 5 6 7 8 9 10</PRE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="BINM"
+>7.5. binm - Binarisieren eines Grauwertbildes</A
+></H3
+><P
+>Ist ein Grauwert gr&ouml;&szlig;er als ein angegebener Schwellwert,
+	wird dieser auf den Wert MAX_GW-1 (weiss) gesetzt.</P
+><P
+><B
+CLASS="COMMAND"
+>binm</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>  [<TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+>] [<TT
+CLASS="REPLACEABLE"
+><I
+>Schwelle</I
+></TT
+> | -auto1 | -konvex | -otsu | -sigma]</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>-auto -auto1 -konvex -otsu -sigma</DT
+><DD
+><P
+></P
+><UL
+><LI
+><P
+>-auto1: Bestimmung des h&auml;ufigsten Grauwertes. Im
+		  rechstsstehenden Tal wird der Grauwert als Schwelle
+		  verwendet, bei dem die H&auml;ufigkeit wieder ansteigt. Eine
+		  Anwendung ist bei dunklem Hintergrund sinnvoll</P
+></LI
+><LI
+><P
+>-konvex: Der Grauwert mit dem größte Abstand zwischen
+		  Häufigkeitswert und Hüllkurvenwert wird als Schwelle
+		  verwendet. Der kleinere Hüllkurvenstützbalken wird auf den
+		  größeren normiert.</P
+></LI
+><LI
+><P
+>-otsu: Die Grenze zwischen zwei Moden einer bimodalen
+		  Verteilung, bei der sich die kleinste Summe der beiden
+		  Varianzen ergibt, ist der Schwellwert.</P
+></LI
+><LI
+><P
+>-sigma: Der Grauwert, der sich im Abstand von 2,5&sigma;
+		rechts vom Erwartungswert der Verteilung befindet ist der
+		  Schwellwert.</P
+></LI
+></UL
+></DD
+></DL
+></DIV
+><P
+>Bei der Angabe von einem oder zwei Parametern (nur Bildnummern)
+	wird als <CODE
+CLASS="PARAMETER"
+>Schwelle</CODE
+> der beim Aufruf von <A
+HREF="#HISTOGRAMM"
+>histogramm</A
+> ermittelte Mittelwert oder der
+	im Kommando <A
+HREF="#HISTOGRAF"
+>histograf</A
+> eingestellte
+	Wert &uuml;bernommen.</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN1119"
+></A
+><P
+><B
+>Beispiel 23. Bild 2 soll mit der Schwelle 120 binarisiert werden. Das
+	  Ergebnisbild wird unter 4 abgelegt</B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>binm 2 4 120</PRE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="ADABIN"
+>7.6. adabin - Adaptive Binarisierung</A
+></H3
+><P
+>Die Binarisierungsschwelle wird innerhalb eines Fensters f&uuml;r
+	jeden Bildpunkt mittels verschiedener Verfahren neu berechnet. Die
+Fenstergr&ouml;&szlig;e kann beliebig gross sein. Die Anzahl der verwendeten
+Parameter h&auml;ngt vom gew&auml;hlten Verfahren ab.</P
+><P
+><B
+CLASS="COMMAND"
+>adabin</B
+>  {1 | 2 | 3 | 4 | 5 | 6}  <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Ergebnisbildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Fenstergr&ouml;sse</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Parameter_1</I
+></TT
+>  [<TT
+CLASS="REPLACEABLE"
+><I
+>Parameter_2</I
+></TT
+>]</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>1</DT
+><DD
+><P
+>Mean-Verfahren; Parameter: Differenz zum Mittelwert</P
+></DD
+><DT
+>2</DT
+><DD
+><P
+>Median-Verfahren: Parameter: Differenz zum Median-Wert</P
+></DD
+><DT
+>3</DT
+><DD
+><P
+>Midgrey-Verfahren; Parameter: Differenz zum Midgrey-Wert</P
+></DD
+><DT
+>4</DT
+><DD
+><P
+>Niblack-Verfahren; Parameter: Streuungsfaktor</P
+></DD
+><DT
+>5</DT
+><DD
+><P
+>Sauvola-Verfahren; 1. Parameter: Streuungsfaktor;
+2.Parameter: Maximalstreuung</P
+></DD
+><DT
+>6</DT
+><DD
+><P
+>Bernsen-Verfahren: Parameter: Kontrastschwelle</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="VERK"
+>7.7. verk - Punktweise logische Verkn&uuml;pfung</A
+></H3
+><P
+>Es k&ouml;nnen zwei Bilder miteinander oder ein Bild mit einer
+	Konstanten verkn&uuml;pft pro Bildpunkt bitweise werden. Folgende
+	Kommandoanwendungen sind m&ouml;glich:</P
+><P
+><B
+CLASS="COMMAND"
+>verk</B
+>  {and | or | xor | min | max}  <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer1</I
+></TT
+>  [<TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer2</I
+></TT
+>] [<TT
+CLASS="REPLACEABLE"
+><I
+>Konstante</I
+></TT
+>]</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>and or xor</DT
+><DD
+><P
+>Bitweise Verknüpfung pro Bildpunkt von zwei Bildern (Ergebnis
+	      wird in <CODE
+CLASS="PARAMETER"
+>Bildnummer1</CODE
+> geschrieben) oder
+	      eines Bildes mit einer <CODE
+CLASS="PARAMETER"
+>Konstante</CODE
+> (Ergebnis
+	      wird in <CODE
+CLASS="PARAMETER"
+>Bildnummer2</CODE
+> geschrieben).</P
+></DD
+><DT
+>min max</DT
+><DD
+><P
+>Minimum- bzw. Maximum-Operator f&uuml;r zwei Bilder. Das
+	      Ergebnisbild wird auf <CODE
+CLASS="PARAMETER"
+>Bilnummer1</CODE
+>
+	      gelegt.</P
+></DD
+></DL
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN1199"
+></A
+><P
+><B
+>Beispiel 24. Bild 1 wird and-verkn&uuml;pft mit der Konstante 32 (Maskierung
+	  des Bit 5). Das Ergebnisbild wird unter Bild 2 abgelegt</B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>verk and 1 2 32</PRE
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN1202"
+></A
+><P
+><B
+>Beispiel 25. Bild 0 und Bild 1 werden or-verkn&uuml;pft. Das Ergebnis wird in
+	Bild 0 abgelegt</B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>verk or 0 1</PRE
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN1205"
+></A
+><P
+><B
+>Beispiel 26. Bestimmung der minimalen Grauwerte pro Bildpunkt der Bilder 1
+	  und 3. Das Ergebnis wird in Bild 1 abgelegt. </B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>verk min 1 3</PRE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="SECT1"
+><HR><H2
+CLASS="SECT1"
+><A
+NAME="AEN1208"
+>8. Weitere Bildmanipulationen</A
+></H2
+><P
+>Verschiedenen Funktionen zur Veränderung von Bildern.</P
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="EXTEND"
+>8.1. extend - Symmetrische Randbelegung</A
+></H3
+><P
+>Ein Bild zu einer neuen Bildgröße erweitert. Dazu wird symmetrisch
+ein schwarzer Rand um das ursprüngliche Bild gelegt.</P
+><P
+><B
+CLASS="COMMAND"
+>extend</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Spaltenzahl_neu</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Zeilenzahl_neu</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+> </P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="TILE"
+>8.2. tile - Kachelung eines Bildes</A
+></H3
+><P
+>Ein Bild wird in mehrere kleinere Teilbilder gleichm&auml;&szlig;ig
+	aufgeteilt. Die Teilbilder k&ouml;nnen zur Bestimmung von Merkmalen
+	(z.B. Textureigenschaften) wie Objekte behandelt werden. Optional kann
+noch eine Bildnummer für ein Gitterbild angegeben werden, das die Kachelgrenzen
+markiert. Wird die Randbreite als negativer Wert angegeben, so entspricht die
+Randbreite dem Absolutbetrag des angegebenen Wertes und statt der Anzahl der
+horizontalen Kacheln kann die Kachelbreite angegeben werden bzw. f&uuml;r die
+Anzahl der vertikalen Kachel steht jetzt die Kachelh&ouml;he.</P
+><P
+><B
+CLASS="COMMAND"
+>tile</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Randbreite</I
+></TT
+>  {<TT
+CLASS="REPLACEABLE"
+><I
+>Anzahl_horizontal</I
+></TT
+> | <TT
+CLASS="REPLACEABLE"
+><I
+>Kachelbreite</I
+></TT
+>} {<TT
+CLASS="REPLACEABLE"
+><I
+>Anzahl_vertikal</I
+></TT
+> | <TT
+CLASS="REPLACEABLE"
+><I
+>Kachelh&ouml;he</I
+></TT
+>} [<TT
+CLASS="REPLACEABLE"
+><I
+>Gitterbildnummer</I
+></TT
+>]</P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="RASTER"
+>8.3. raster - Einteilung eines Bildes in Sektoren</A
+></H3
+><P
+>Ein Bild wird in Sektoren aufgeteilt. Die Bildgr&ouml;ße
+wird dabei nicht geändert. Der Grauwert eines Sektors
+entspricht dem Mittelwert aller Grauwerte innerhalb des Sektors. Alternativ
+kann ein Bin&auml;rbild erzeugt werden. Der Sektor wird weiss, wenn der
+Grauwertmittelwert des Sektors gr&ouml;ßer als der Mittelwert &uuml;ber alle
+Sektorgrauwerte ist, anderenfalls wird der Sektor schwarz.  Wird als sechster
+Parameter eine Bildnummer angegeben, wird ein weiteres neues Bild angelegt, bei der
+jeder Sektor durch ein Pixel repr&auml;sentiert wird.</P
+><P
+><B
+CLASS="COMMAND"
+>raster</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+>  {gw | bin}  <TT
+CLASS="REPLACEABLE"
+><I
+>Sektoren_horizontal</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Sektoren_vertikal</I
+></TT
+>  [<TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer_reduziert</I
+></TT
+>]</P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="RESAMPLING"
+>8.4. resampling - Skalierung eines Bildes</A
+></H3
+><P
+>Ein Bild kann mittels verschiedener Interpolationsverfahren
+skaliert werden</P
+><P
+><B
+CLASS="COMMAND"
+>resamling</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Zielbreite</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Zielhöhe</I
+></TT
+>  [0 | 1 | 2 | 3 | 4 | 5]</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>0 1 2 3 4 5</DT
+><DD
+><P
+></P
+><UL
+><LI
+><P
+>0: Box-Filter</P
+></LI
+><LI
+><P
+>1: Dreieck-Filter (Standardeinstellung)</P
+></LI
+><LI
+><P
+>2: Kubischer-Filter.</P
+></LI
+><LI
+><P
+>3: Lanzos2-Filter</P
+></LI
+><LI
+><P
+>4: Lanzos3-Filter</P
+></LI
+><LI
+><P
+>5: Hanning-Filter</P
+></LI
+></UL
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="DITHER"
+>8.5. dither - Zufallsdithering eines Grauwertbildes</A
+></H3
+><P
+>Ein Grauwertbild wird in ein Bin&auml;rbild umgewandelt. F&uuml;r
+jeden Bildpunkt wird eine gleichverteilte Zufallszahl zwischen 0 und 255
+gezogen. Ist der Grauwert größer als die Zufallszahl wir der Bildpunkt weiss,
+anderenfalls schwarz.</P
+><P
+><B
+CLASS="COMMAND"
+>dither</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+> </P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="SALTPEPPER"
+>8.6. saltpepper - Impulsrauschen auf ein Bild legen</A
+></H3
+><P
+>Auf ein Bild wird ein Impulsrauschen mit einer vorgegebenen
+Wahrscheinlichkeitsanteil zwischen 0 und 1 gegeben. Die gestörten Pixel sind
+zu gleichen Teilen entweder schwarz oder weiss. </P
+><P
+><B
+CLASS="COMMAND"
+>saltpepper</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Störanteil</I
+></TT
+>  [<TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+>]</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN1322"
+></A
+><P
+><B
+>Beispiel 27. Bild 0 wird mit einem Anteil von 80 % an gestörten Pixeln mit
+Impulsen belegt und als Bild 1 angelegt</B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>saltpepper 0 0.8 1</PRE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="SECT1"
+><HR><H2
+CLASS="SECT1"
+><A
+NAME="AEN1325"
+>9. Pixelklassifizierung und Bildsegmentierung</A
+></H2
+><P
+>Die Eigenschaften eines einzelnen Bildpunktes bestimmen die Zuordnung
+      zu einer Art von Pixeln (Klassen). Die Segmentierung ist ein Teil
+      der Pixelklassifizierung. Die Klassenzugeh&ouml;rigkeit entspricht hier
+      der Zugeh&ouml;rigkeit zu einem Objekt im Bild.</P
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="PIXMERK"
+>9.1. pixmerk - Festlegung von  zwei Merkmale</A
+></H3
+><P
+>Die Grauwerte zweier Bilder (z.B. Farbausz&uuml;ge) sind die
+	Merkmalsachsen. Das Ergebnisbild stellt den Merkmalsraum dar.</P
+><P
+><B
+CLASS="COMMAND"
+>pixmerk</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer1</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer2</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+>  [0 | 1]</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>0 1</DT
+><DD
+><P
+></P
+><UL
+><LI
+><P
+>0: Die als Grauwerte dargestellten H&auml;ufigkeiten
+		  werden auf den maximalen Wert normiert.</P
+></LI
+><LI
+><P
+>1: Die Grauwerte werden auf MAX_GW-1 (255) begrenzt
+		  (Standardeinstellung).</P
+></LI
+></UL
+></DD
+></DL
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN1351"
+></A
+><P
+><B
+>Beispiel 28. Ein Farbbild wird in die RGB-Komponenten zerlegt (Bild 0, 1,
+	  2). Die Rot- und Blau-Komponente sollen als Eigenschaften dienen. Der
+	2D-Merkmalsraum wird als Bild 3 gespeichert und die Werte auf 255
+	  begrenzt. </B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>picread farbbild.bmp rgb 0 1 2</PRE
+><PRE
+CLASS="PROGRAMLISTING"
+>pixmerk 0 2 3 1</PRE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="PIXKLAS"
+>9.2. pixklas - Pixelklassifikator f&uuml;r 2 Merkmale</A
+></H3
+><P
+>Die Klassentrennung erfolgt im 2D-Merkmalsraum. Pro Merkmal wird
+ein Intervalltest durchgeführt. Das Ergebnis der
+	Pixelklassifikation wird in das als erster Parameter angegebene Bild
+	geschrieben. Die Grenzen der Klassenintervalle sind als	Datei
+	gespeichert. Diese k&ouml;nnen durch das Kommando <A
+HREF="#PROFIL"
+>profil point</A
+> interaktiv festgelegt
+	werden.</P
+><P
+><B
+CLASS="COMMAND"
+>pixklas</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer1</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer2</I
+></TT
+> </P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="GENPIXMERK"
+>9.3. genpixmerk - Generierung von Pixelmerkmalen</A
+></H3
+><P
+>Erzeugung eines n-dimensionalen Merkmalsvektors aus unterschiedlichen
+          Datenquellen. Quelle der Eigenschaften
+      k&ouml;nnen z. B. unterschiedliche Bilder (Kan&auml;le eines
+multispektralen Bildes) oder
+      Ergebnisse eines Texturfiltersatzes auf ein Bild sein.</P
+><P
+><B
+CLASS="COMMAND"
+>genpixmerk</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>methode</I
+></TT
+> </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><CODE
+CLASS="PARAMETER"
+>methode:</CODE
+></DT
+><DD
+><P
+></P
+><UL
+><LI
+><P
+> laws  {3 | 5 | 7}  <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+> </P
+><P
+>Merkmalsdaten aus der Filterung eines Bildes mit einem Texturfiltersatzes.</P
+></LI
+></UL
+></DD
+><DT
+></DT
+><DD
+><P
+></P
+><UL
+><LI
+><P
+> image   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer_1</I
+></TT
+>  [<TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer_n...</I
+></TT
+>]</P
+><P
+>Die Grauwerte der als Parameter angegebenen Bilder werden
+als Merkmale interpretiert.</P
+></LI
+></UL
+></DD
+></DL
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN1400"
+></A
+><P
+><B
+>Beispiel 29. Von einem Bild mit der Bildnummer 0 wird durch eine Texturfilersatz nach Laws ein
+Merkmalsvektor erzeugt. Bei einem 3x3 Filter werden 9 Merkmale berechnet.</B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>genpixmerk laws 3 0</PRE
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN1403"
+></A
+><P
+><B
+>Beispiel 30. Die RGB-Kan&auml;le eines Bildes werden als Merkmalsvektor verwendet.</B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>picread farbbild.bmp rgb 0 1 2</PRE
+><PRE
+CLASS="PROGRAMLISTING"
+>genpixmerk image 0 1 2</PRE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="CLASPIXMERK"
+>9.4. claspixmerk - n-dimensionale Pixelklassifikation</A
+></H3
+><P
+>Pixelklassifikation auf der Basis  eines n-dimensionalen
+Merkmalsvektors, der mit dem Kommando <A
+HREF="#GENPIXMERK"
+>genpixmerk</A
+> erzeugt
+wurde.</P
+><P
+><B
+CLASS="COMMAND"
+>claspixmerk</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>methode</I
+></TT
+> </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><CODE
+CLASS="PARAMETER"
+>methode:</CODE
+></DT
+><DD
+><P
+></P
+><UL
+><LI
+><P
+> sigma   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>   Sigma-Faktor </P
+><P
+>F&uuml;r jeden Kanal wird von einer Normaverteilung ausgegangen und
+alle Pixel innerhalb des Bereiches Sigma-Faktor * Sigma werden angenommen. Die
+Bereiche können mittels des Kommandos <A
+HREF="#PROFIL"
+>profil point</A
+>
+interaktiv festgelegt werden. Unter <CODE
+CLASS="PARAMETER"
+>Bildnummer</CODE
+> sind die
+klassifizierten Pixel markiert.</P
+></LI
+></UL
+></DD
+><DT
+></DT
+><DD
+><P
+></P
+><UL
+><LI
+><P
+> cluster   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer_1</I
+></TT
+> </P
+><P
+>NOCH NICHT IMPLEMENTIERT</P
+></LI
+></UL
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="SHOWPIXMERK"
+>9.5. showpixmerk - Visualisierung eines Pixelmerkmals</A
+></H3
+><P
+>Visualisierung eines Pixelmerkmals, dass mit dem Kommando <A
+HREF="#GENPIXMERK"
+> genpixmerk</A
+> erzeugt wurde. Die Werte werden
+zwischen den minimalen und maximale Wert auf 0 und 255 skaliert. Es wird ein
+Bild erzeugt, das unter <CODE
+CLASS="PARAMETER"
+>Bildnummer</CODE
+> abgelegt wird.</P
+><P
+><B
+CLASS="COMMAND"
+>showpixmerk</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Kanalnummer</I
+></TT
+> </P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="CLEARPIXMERK"
+>9.6. clearpixmerk - Löschen der Pixelmerkmale</A
+></H3
+><P
+> Alle Pixelmerkmale werden gelöscht. </P
+><P
+><B
+CLASS="COMMAND"
+>clearpixmerk</B
+> </P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="SEG"
+>9.7. seg - Segmentierung eines Bin&auml;rbildes</A
+></H3
+><P
+>Segmentierung von Objekten eines Bin&auml;rbildes mittels Markierung
+verbundener Komponenten (connected components labeling) durch ein
+	Zeilenkoinzidenzverfahren. Es kann dabei die 4-er oder 8-er
+	Nachbarschaft festgelegt werden. Im Ergebnisbild werden pro Objekt alle
+Pixel mit der gleichen Marke versehen.</P
+><P
+><B
+CLASS="COMMAND"
+>seg</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>  {4 | 8}  <TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+> </P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="HYSTERESE"
+>9.8. hysterese - Segmentierung und Grauwertvalidierung</A
+></H3
+><P
+>Ein Bild wird binarisiert und segmentiert. G&uuml;ltige Objekte sind
+      nur diejenigen, die einen festgelegten Grauwert &uuml;berschreiten. Alle
+	g&uuml;ltigen Objekte bleiben im Zielbild als Grauwerfl&auml;chen
+	erhalten, alle anderen Pixel werden auf 0 gesetzt.</P
+><P
+><B
+CLASS="COMMAND"
+>hysterese</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Binarisierungsschwelle</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Validierungsschwelle</I
+></TT
+> </P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="SEPREGION"
+>9.9. sepregion - Regionensegmentierung mittels
+	Wasserscheidetransformation</A
+></H3
+><P
+>Finden von zusammenh&auml;ngenden Regionen mittels
+	  Wasserscheidetransformation. Die Grundlage dazu sind 2-kanalige
+	  Bilder.</P
+><P
+><B
+CLASS="COMMAND"
+>sepregion</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Flutbeginn</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Fluth&ouml;he</I
+></TT
+> </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><CODE
+CLASS="PARAMETER"
+>Bildnummer</CODE
+></DT
+><DD
+><P
+>Kann ein Grauwertbild sein (z.B. als Resultat einer
+	      Distanz-Transformation mittels Kommando <A
+HREF="#DISTANCE"
+>distance</A
+>) oder ein 2D-Merkmalsbild
+	      z.B. mittels Kommando <A
+HREF="#PIXMERK"
+>pixmerk</A
+>
+	      sein. </P
+></DD
+><DT
+><CODE
+CLASS="PARAMETER"
+>Zielbildnummer</CODE
+></DT
+><DD
+><P
+>Nummer des wasserscheidensegmentiertes Bild</P
+></DD
+><DT
+><CODE
+CLASS="PARAMETER"
+>Flutbeginn</CODE
+></DT
+><DD
+><P
+>untere Grauwertgrenze (Grauwerte darunter werden nicht
+	      ber&uuml;cksichtigt)</P
+></DD
+><DT
+><CODE
+CLASS="PARAMETER"
+>Fluth&ouml;he</CODE
+></DT
+><DD
+><P
+>obere Grauwertgrenze (Grauwerte dar&uuml;ber
+	      werden nicht ber&uuml;cksichtigt)</P
+></DD
+></DL
+></DIV
+><P
+> Der Wert f&uuml;r <CODE
+CLASS="PARAMETER"
+>Flutbeginn</CODE
+> muss stehts
+	niedriger sein als der  Wert f&uuml;r
+	<CODE
+CLASS="PARAMETER"
+>Fluth&ouml;he</CODE
+></P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN1520"
+></A
+><P
+><B
+>Beispiel 31. siehe<A
+HREF="#ANHANG_SEG"
+> Anhang</A
+></B
+></P
+><P
+></P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="JOINREGION"
+>9.10. joinregion - Verschmelzen von &uuml;bersegmentierten
+	Regionen</A
+></H3
+><P
+>Getrennte Regionen k&ouml;nnen auf der Grundlage festzulegender
+	      Kriterien zusammengefasst werden.</P
+><P
+><B
+CLASS="COMMAND"
+>joinregion</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Grauwertbildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Segmentbildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+>  {mw | min | max | groesse}  <TT
+CLASS="REPLACEABLE"
+><I
+>Schwelle</I
+></TT
+> </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><CODE
+CLASS="PARAMETER"
+>Grauwertbildnummer</CODE
+></DT
+><DD
+><P
+>Grauwertbild f&uuml;r die Kriterienberechnung (Bild vor der
+	      Segmentierung)</P
+></DD
+><DT
+><CODE
+CLASS="PARAMETER"
+>Segmentbildnummer</CODE
+></DT
+><DD
+><P
+>&uuml;bersegmentiertes Bild, in
+		  dem Regionen zusammengefasst werden sollen
+		  (segmentiertes Mosaikbild)</P
+></DD
+><DT
+><CODE
+CLASS="PARAMETER"
+>Zielbildnummer</CODE
+></DT
+><DD
+><P
+>segmentiertes Bild mit verschmolzenen Regionen (segmentiertes
+	      Mosaikbild)</P
+></DD
+><DT
+>mw min max groesse</DT
+><DD
+><P
+></P
+><UL
+><LI
+><P
+>mw: Mittelwert</P
+></LI
+><LI
+><P
+>min: Minimum</P
+></LI
+><LI
+><P
+>max: Maximum</P
+></LI
+><LI
+><P
+>groesse: Gr&ouml;&szlig;e der Region</P
+></LI
+></UL
+></DD
+><DT
+><CODE
+CLASS="PARAMETER"
+>Schwelle</CODE
+></DT
+><DD
+><P
+>Alle Regionen dessen Differenz (mw,min,max) oder absoluter
+	      Wert (groesse) unter der Schwelle liegen werden
+	      verschmolzen.</P
+></DD
+></DL
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN1575"
+></A
+><P
+><B
+>Beispiel 32. siehe<A
+HREF="#ANHANG_SEG"
+> Anhang</A
+></B
+></P
+><P
+></P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="HSREG"
+>9.11. hsreg - Farbraumsegmentierung mit H- und S-Komponente</A
+></H3
+><P
+>Die Labelwerte im segmentierten HS-Merkmalsraum werden in den
+	RGB-Farbraum umgerechnet</P
+><P
+><B
+CLASS="COMMAND"
+>hsrg</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer_Rot</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer_Gruen</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer_Blau</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnr_seg_HS_Raum</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+> </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><CODE
+CLASS="PARAMETER"
+>Bildnummer_Rot</CODE
+></DT
+><DD
+><P
+>Rotkomponente des Originalbildes</P
+></DD
+><DT
+><CODE
+CLASS="PARAMETER"
+>Bildnummer_Gruen</CODE
+></DT
+><DD
+><P
+>Gr&uuml;nkomponente des Originalbildes</P
+></DD
+><DT
+><CODE
+CLASS="PARAMETER"
+>Bildnummer_Blau</CODE
+></DT
+><DD
+><P
+>Blaukomponente des Originalbildes</P
+></DD
+><DT
+><CODE
+CLASS="PARAMETER"
+>Bildnr_seg_HS_Raum</CODE
+></DT
+><DD
+><P
+>Bildnummer des wasserscheidensegmentierten
+	      HS-Merkmalsraum</P
+></DD
+></DL
+></DIV
+><P
+>Aus den Werten des roten, gr&uuml;nen und blauen Farbkanals wird
+	der H- und S-Wert  berechnet.  Anschlie&szlig;end wird mit diesen
+	Werten aus dem  Merkmalsraum das Label der Segmentierung ermittelt und
+	im Ergebnisbild an der Stelle des RGB Pixels gesetzt.</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN1616"
+></A
+><P
+><B
+>Beispiel 33. siehe<A
+HREF="#ANHANG_SEG"
+> Anhang</A
+></B
+></P
+><P
+></P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="ABREG"
+>9.12. abreg - Farbraumsegmentierung mit a- und b-Komponente</A
+></H3
+><P
+>Die Labelwerte im segmentierten a*b*-Merkmalsraum (L*a*b Farbmodell)
+	werden in den RGB-Farbraum umgerechnet</P
+><P
+><B
+CLASS="COMMAND"
+>hsrg</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer_Rot</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer_Gruen</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer_Blau</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnr_seg_ab_Raum</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+> </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><CODE
+CLASS="PARAMETER"
+>Bildnummer_Rot</CODE
+></DT
+><DD
+><P
+>Rotkomponente des Originalbildes</P
+></DD
+><DT
+><CODE
+CLASS="PARAMETER"
+>Bildnummer_Gruen</CODE
+></DT
+><DD
+><P
+>Gr&uuml;nkomponente des Originalbildes</P
+></DD
+><DT
+><CODE
+CLASS="PARAMETER"
+>Bildnummer_Blau</CODE
+></DT
+><DD
+><P
+>Blaukomponente des Originalbildes</P
+></DD
+><DT
+><CODE
+CLASS="PARAMETER"
+>Bildnr_seg_ab_Raum</CODE
+></DT
+><DD
+><P
+>Bildnummer des wasserscheidensegmentierten
+	      ab-Merkmalsraum</P
+></DD
+></DL
+></DIV
+><P
+>Aus den Werten des roten, gr&uuml;nen und blauen Farbkanals wird
+	der a- und b-Wert  berechnet.  Anschlie&szlig;end wird mit diesen
+	Werten aus dem  Merkmalsraum das Label der Segmentierung ermittelt und
+	im Ergebnisbild an der Stelle des RGB Pixels gesetzt.</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN1657"
+></A
+><P
+><B
+>Beispiel 34. siehe<A
+HREF="#ANHANG_SEG"
+> Anhang</A
+></B
+></P
+><P
+></P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="RAWREG"
+>9.13. rawreg - Segmentierung mit allgemeinen  Kan&auml;len</A
+></H3
+><P
+>Zwei allgemeine Grauwertkan&auml;le bilden den
+	2D-Merkmalsraum</P
+><P
+><B
+CLASS="COMMAND"
+>rawreg</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer_Kanal_1</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer_Kanal_2</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnr_seg_Raum</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+> </P
+><P
+>Mit den Werten aus dem  Merkmalsraum wird das Label der
+	Segmentierung ermittelt und im Ergebnisbild an der Stelle des Pixels
+	mit den Kanalwerten gesetzt.</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN1675"
+></A
+><P
+><B
+>Beispiel 35. siehe<A
+HREF="#ANHANG_SEG"
+> Anhang</A
+></B
+></P
+><P
+></P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="DISTANCE"
+>9.14. distance - Distanztransformation eines Binärbildes</A
+></H3
+><P
+>Ein Binärbild mit weissen Objekten wird mittels euklidischer
+	  Distanztransformation in ein Grauwertbild konvergiert. Dies kann als
+	  Vorstufe für eine Wasserscheidentransformation verwendet
+	werden.</P
+><P
+><B
+CLASS="COMMAND"
+>distance</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+> </P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="OPTIMIZE"
+>9.15. optimize - Helligkeitsnormierung</A
+></H3
+><P
+>Ermittelt von jedem Objekt den maximalen Grauwert und normiert
+	anschlie&szlig;end die maximale Objekthelligkeit auf 254. Dies erfolgt
+	durch Multiplikation jedes einzelnen Objektgrauwertes mit einen
+	Faktor=254/Max_Objekt_GW . Der Befehl erm&ouml;glicht die
+	anschlie&szlig;ende 
+	Berechnung von helligkeitsunabh&auml;ngigen Objektmerkmalen, weil alle
+	Objekte in ihrer Helligkeit normiert sind.</P
+><P
+><B
+CLASS="COMMAND"
+>optimize</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Templatebildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+> </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT1"
+><HR><H2
+CLASS="SECT1"
+><A
+NAME="AEN1699"
+>10. Merkmalsextraktion</A
+></H2
+><P
+>In diesem Abschnitt werden verschiedene Funktionsbereiche
+      beschrieben:</P
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="#MASKINFO"
+>Steuerung der
+	    Merkmalsextraktion</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="#MERKEX"
+>Bestimmung der Merkmale</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="#SAVEMLIST"
+>Verwaltung der Ergebnisliste der
+	      bestimmten Merkmale</A
+></P
+></LI
+></UL
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="MASKINFO"
+>10.1. maskinfo - Anzeige der gesetzten Merkmale</A
+></H3
+><P
+>Anzeige der aktuellen Merkmalsmaske, d.h. Liste der
+	Merkmale die bestimmt werden sollen. Die Funktion wird ohne Parameter
+	aufgerufen.</P
+><P
+><B
+CLASS="COMMAND"
+>maskinfo</B
+>  [[on | an]| [off | aus]]</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>on an</DT
+><DD
+><P
+>Anzeige aller ausgew&auml;hlten Merkmale</P
+></DD
+><DT
+>off aus</DT
+><DD
+><P
+>Anzeige aller nicht ausgew&auml;hlten Merkmale</P
+></DD
+></DL
+></DIV
+><P
+>Je Merkmal gibt des drei Eintr&auml;ge:</P
+><P
+></P
+><UL
+><LI
+><P
+>Flag, ob Merkmal bestimmt werden soll (x) oder nicht ( )</P
+></LI
+><LI
+><P
+>Index: laufende Nummer mit der das Merkmal identifiziert wird
+	  </P
+></LI
+><LI
+><P
+>Merkmal: Beschreibung des Merkmals</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="SETMASK"
+>10.2. setmask - Setzen der Merkmalsmaske</A
+></H3
+><P
+>Bearbeiten der Merkmalsmaske. Es wird festgelegt, welche Merkmale
+	bestimmt  werden sollen. Die Merkmale beziehen sich auf jedes einzelne
+	Objekt. Es gibt folgende Aufrufm&ouml;glichkeiten:</P
+><P
+><B
+CLASS="COMMAND"
+>setmask</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Merkmalsindex</I
+></TT
+>  {0 | 1}</P
+><P
+><B
+CLASS="COMMAND"
+>setmask</B
+>  {all | alle}</P
+><P
+><B
+CLASS="COMMAND"
+>setmask</B
+>  {none | keins}</P
+><DIV
+CLASS="TABLE"
+><A
+NAME="AEN1762"
+></A
+><P
+><B
+>Tabelle 3. Verf&uuml;gbare Merkmale</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL
+WIDTH="38"><COL
+WIDTH="132"><COL
+WIDTH="76"
+ALIGN="CENTER"><COL
+WIDTH="57"
+ALIGN="CENTER"><COL
+WIDTH="1*"
+ALIGN="CENTER"><COL
+WIDTH="1*"
+ALIGN="CENTER"><COL
+WIDTH="1*"
+ALIGN="CENTER"><COL
+WIDTH="1*"
+ALIGN="CENTER"><COL
+WIDTH="1*"
+ALIGN="CENTER"><THEAD
+><TR
+><TH
+>Index</TH
+><TH
+>Merkmal</TH
+><TH
+>Abk.</TH
+><TH
+>Standard</TH
+><TH
+>Param.1</TH
+><TH
+>Param.2</TH
+><TH
+>Param.3</TH
+><TH
+>Param.4</TH
+><TH
+>Param.5</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>0</TD
+><TD
+>Objektnummer</TD
+><TD
+>oid</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>1</TD
+><TD
+>Gesamtfl&auml;che</TD
+><TD
+>gfl</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>2</TD
+><TD
+>Anzahl der L&ouml;cher</TD
+><TD
+>azl</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>3</TD
+><TD
+>Lochfl&auml;che</TD
+><TD
+>lfl</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>4</TD
+><TD
+>Objektfl&auml;che</TD
+><TD
+>ofl</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>5</TD
+><TD
+>Umfang</TD
+><TD
+>umf</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>6</TD
+><TD
+>Schwerpunkt_x</TD
+><TD
+>xs</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>7</TD
+><TD
+>Schwerpunkt_y</TD
+><TD
+>ys</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>8</TD
+><TD
+>Formfaktor: U&circ;2/(4&pi;A)</TD
+><TD
+>ff1</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>9</TD
+><TD
+>max. x-Ausdehnung</TD
+><TD
+>dx</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>10</TD
+><TD
+>max. y-Ausdehnung</TD
+><TD
+>dy</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>11</TD
+><TD
+>max. Radius um Schwerpunkt</TD
+><TD
+>grs</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>12</TD
+><TD
+>min. Radius um Schwerpunkt</TD
+><TD
+>krs</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>13</TD
+><TD
+>Formfaktor: grs/krs</TD
+><TD
+>ff2</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>14</TD
+><TD
+>Anzahl Polygonpunkte</TD
+><TD
+>app</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>15</TD
+><TD
+>Mittelwert</TD
+><TD
+>mw</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>16</TD
+><TD
+>Varianz</TD
+><TD
+>var</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>17</TD
+><TD
+>Standardabweichung</TD
+><TD
+>sta</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>18</TD
+><TD
+>Schiefe</TD
+><TD
+>sie</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>19</TD
+><TD
+>Exzess</TD
+><TD
+>exz</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>20</TD
+><TD
+>Entropie</TD
+><TD
+>ent</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>21</TD
+><TD
+>Kontrast</TD
+><TD
+>knt</TD
+><TD
+>45;3</TD
+><TD
+>Winkel NB(0°, 45°, 90°)</TD
+><TD
+>Abstand NB</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>22</TD
+><TD
+>Korrelation</TD
+><TD
+>kor</TD
+><TD
+>45;3</TD
+><TD
+>Winkel NB(0°, 45°, 90°)</TD
+><TD
+>Abstand NB</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>23</TD
+><TD
+>Homogenität</TD
+><TD
+>hom</TD
+><TD
+>45;3</TD
+><TD
+>Winkel NB(0°, 45°, 90°)</TD
+><TD
+>Abstand NB</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>24</TD
+><TD
+>Differenzentropie</TD
+><TD
+>dent</TD
+><TD
+>45;3</TD
+><TD
+>Winkel NB(0°, 45°, 90°)</TD
+><TD
+>Abstand NB</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>25</TD
+><TD
+>Entropie2</TD
+><TD
+>ent2</TD
+><TD
+>45;3</TD
+><TD
+>Winkel NB(0°, 45°, 90°)</TD
+><TD
+>Abstand NB</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>26</TD
+><TD
+>Inv. Differenzmoment / Einheitlichkeit</TD
+><TD
+>ein</TD
+><TD
+>45;3</TD
+><TD
+>Winkel NB(0°, 45°, 90°)</TD
+><TD
+>Abstand NB</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>27</TD
+><TD
+>Maximum</TD
+><TD
+>max</TD
+><TD
+>45;3</TD
+><TD
+>Winkel NB(0°, 45°, 90°)</TD
+><TD
+>Abstand NB</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>28</TD
+><TD
+>Verschiedenheit</TD
+><TD
+>ver</TD
+><TD
+>45;3</TD
+><TD
+>Winkel NB(0°, 45°, 90°)</TD
+><TD
+>Abstand NB</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>29</TD
+><TD
+>Energie / Gleichm&auml;&szlig;igkeit</TD
+><TD
+>glei</TD
+><TD
+>45;3</TD
+><TD
+>Winkel NB(0°, 45°, 90°)</TD
+><TD
+>Abstand NB</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>30</TD
+><TD
+>Zweites Moment</TD
+><TD
+>m2</TD
+><TD
+>45;3</TD
+><TD
+>Winkel NB(0°, 45°, 90°)</TD
+><TD
+>Abstand NB</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>31</TD
+><TD
+>Summe Durchschnitt</TD
+><TD
+>sdu</TD
+><TD
+>45;3</TD
+><TD
+>Winkel NB(0°, 45°, 90°)</TD
+><TD
+>Abstand NB</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>32</TD
+><TD
+>Summe Entropie</TD
+><TD
+>sent</TD
+><TD
+>45;3</TD
+><TD
+>Winkel NB(0°, 45°, 90°)</TD
+><TD
+>Abstand NB</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>33</TD
+><TD
+>Summe Varianz</TD
+><TD
+>svar</TD
+><TD
+>45;3</TD
+><TD
+>Winkel NB(0°, 45°, 90°)</TD
+><TD
+>Abstand NB</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>34</TD
+><TD
+>Varianz2</TD
+><TD
+>var2</TD
+><TD
+>45;3</TD
+><TD
+>Winkel NB(0°, 45°, 90°)</TD
+><TD
+>Abstand NB</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>35</TD
+><TD
+>min.Grauwert (MINGW)</TD
+><TD
+>ming</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>36</TD
+><TD
+>max.Grauwert (MAXGW)</TD
+><TD
+>maxg</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>37</TD
+><TD
+>zentraler Grauwert (ZENTRALGW)</TD
+><TD
+>ceng</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>38</TD
+><TD
+>Sichtbarkeit1</TD
+><TD
+>vis1</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>39</TD
+><TD
+>Sichtbarkeit2</TD
+><TD
+>vis2</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>40</TD
+><TD
+>Spannweite</TD
+><TD
+>span</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>41</TD
+><TD
+>Massenschwerpunkt x</TD
+><TD
+>xsm</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>42</TD
+><TD
+>Massenschwerpunkt y</TD
+><TD
+>ysm</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>43</TD
+><TD
+>Winkel</TD
+><TD
+>wink</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>44</TD
+><TD
+>Achsenverhältnis Ellipse</TD
+><TD
+>achs</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>45</TD
+><TD
+>Median</TD
+><TD
+>med</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>46</TD
+><TD
+>Modus</TD
+><TD
+>mod</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>47</TD
+><TD
+>Mittl. Abweich. vom Median</TD
+><TD
+>mab</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>48</TD
+><TD
+>SP FHL</TD
+><TD
+>fhl</TD
+><TD
+>45;1</TD
+><TD
+>Winkel NB(0°, 45°, 90°)</TD
+><TD
+>Abstand NB</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>49</TD
+><TD
+>SP TENENGRAD</TD
+><TD
+>tenen</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>50</TD
+><TD
+>SP AMPLITUDE</TD
+><TD
+>ampli</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>51</TD
+><TD
+>SP SMD</TD
+><TD
+>smd</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>52</TD
+><TD
+>SP LAPLACE</TD
+><TD
+>laplace</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>53</TD
+><TD
+>SP NORMALISIERTE VARIANZ</TD
+><TD
+>norvar</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>54</TD
+><TD
+>SP VARIANZ</TD
+><TD
+>vari</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>55</TD
+><TD
+>SP BRENNER GRADIENT</TD
+><TD
+>bren</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>56</TD
+><TD
+>SP AUTOCORRELATION</TD
+><TD
+>autoc</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>57</TD
+><TD
+>SP STANDARDABWEICHUNG BASIERT</TD
+><TD
+>stdb</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>58</TD
+><TD
+>Konvexitätsindex</TD
+><TD
+>konv</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>59</TD
+><TD
+>Variationskoeffizient</TD
+><TD
+>cv</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>60</TD
+><TD
+>Mittelwert Achteck</TD
+><TD
+>achteckmw</TD
+><TD
+>7</TD
+><TD
+>Innenradius</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>61</TD
+><TD
+>Verh&auml;ltnis Objekt-/Hintergrundfl&auml;che</TD
+><TD
+>aver</TD
+><TD
+>128</TD
+><TD
+>Schwellwert</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>62</TD
+><TD
+>Anzahl der Teilobjekte</TD
+><TD
+>pobj</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>63</TD
+><TD
+>Mittlere Anzahl Pixel &uuml;ber SW</TD
+><TD
+>mwpsw</TD
+><TD
+>128</TD
+><TD
+>Schwellwert</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>64</TD
+><TD
+>GLDM Homogenit&auml;:t</TD
+><TD
+>gldmhom</TD
+><TD
+>45;3</TD
+><TD
+>Winkel NB(0°, 45°, 90°</TD
+><TD
+>Abstand NB</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>65</TD
+><TD
+>GLDM Kontrast</TD
+><TD
+>gldmknt</TD
+><TD
+>45;3</TD
+><TD
+>Winkel NB(0°, 45°, 90°</TD
+><TD
+>Abstand NB</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>66</TD
+><TD
+>GLDM Zweites Moment</TD
+><TD
+>gldmm2</TD
+><TD
+>45;3</TD
+><TD
+>Winkel NB(0°, 45°, 90°</TD
+><TD
+>Abstand NB</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>67</TD
+><TD
+>GLDM Entropy</TD
+><TD
+>gldment</TD
+><TD
+>45;3</TD
+><TD
+>Winkel NB(0°, 45°, 90°</TD
+><TD
+>Abstand NB</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>68</TD
+><TD
+>GLDM Energie</TD
+><TD
+>gldmglei</TD
+><TD
+>45;3</TD
+><TD
+>Winkel NB(0°, 45°, 90°</TD
+><TD
+>Abstand NB</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>69</TD
+><TD
+>GLDM Verschiedenheit</TD
+><TD
+>gldmver</TD
+><TD
+>45;3</TD
+><TD
+>Winkel NB(0°, 45°, 90°</TD
+><TD
+>Abstand NB</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>70</TD
+><TD
+>LAWS LEVEL+LEVEL</TD
+><TD
+>lawsll</TD
+><TD
+>7</TD
+><TD
+>Gr&ouml;&szlig;e 1D Filter (3;5;7)</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>71</TD
+><TD
+>LAWS LEVEL+EDGE</TD
+><TD
+>lawsle</TD
+><TD
+>7</TD
+><TD
+>Gr&ouml;&szlig;e 1D Filter (3;5;7)</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>72</TD
+><TD
+>LAWS LEVEL+SPOT</TD
+><TD
+>lawsls</TD
+><TD
+>7</TD
+><TD
+>Gr&ouml;&szlig;e 1D Filter (3;5;7)</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>73</TD
+><TD
+>LAWS EDGE+LEVEL</TD
+><TD
+>lawsel</TD
+><TD
+>7</TD
+><TD
+>Gr&ouml;&szlig;e 1D Filter (3;5;7)</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>74</TD
+><TD
+>LAWS EDGE+EDGE</TD
+><TD
+>lawsee</TD
+><TD
+>7</TD
+><TD
+>Gr&ouml;&szlig;e 1D Filter (3;5;7)</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>75</TD
+><TD
+>LAWS EDGE+SPOT</TD
+><TD
+>lawses</TD
+><TD
+>7</TD
+><TD
+>Gr&ouml;&szlig;e 1D Filter (3;5;7)</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>76</TD
+><TD
+>LAWS SPOT+LEVEL</TD
+><TD
+>lawssl</TD
+><TD
+>7</TD
+><TD
+>Gr&ouml;&szlig;e 1D Filter (3;5;7)</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>77</TD
+><TD
+>LAWS SPOT*EDGE</TD
+><TD
+>lawsse</TD
+><TD
+>7</TD
+><TD
+>Gr&ouml;&szlig;e 1D Filter (3;5;7)</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>78</TD
+><TD
+>LAWS SPOT+SPOT</TD
+><TD
+>lawsss</TD
+><TD
+>7</TD
+><TD
+>Gr&ouml;&szlig;e 1D Filter (3;5;7)</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>79</TD
+><TD
+>LAWS WAVE+LEVEL</TD
+><TD
+>lawswl</TD
+><TD
+>7</TD
+><TD
+>Gr&ouml;&szlig;e 1D Filter (5;7)</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>80</TD
+><TD
+>LAWS WAVE+EDGE</TD
+><TD
+>lawswe</TD
+><TD
+>7</TD
+><TD
+>Gr&ouml;&szlig;e 1D Filter (5;7)</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>81</TD
+><TD
+>LAWS WAVE+SPOT</TD
+><TD
+>lawsws</TD
+><TD
+>7</TD
+><TD
+>Gr&ouml;&szlig;e 1D Filter (5;7)</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>82</TD
+><TD
+>LAWS WAVE+WAVE</TD
+><TD
+>lawsww</TD
+><TD
+>7</TD
+><TD
+>Gr&ouml;&szlig;e 1D Filter (5;7)</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>83</TD
+><TD
+>LAWS WAVE+RIPPLE</TD
+><TD
+>lawswr</TD
+><TD
+>7</TD
+><TD
+>Gr&ouml;&szlig;e 1D Filter (5;7)</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>84</TD
+><TD
+>LAWS LEVEL+WAVE</TD
+><TD
+>lawslw</TD
+><TD
+>7</TD
+><TD
+>Gr&ouml;&szlig;e 1D Filter (5;7)</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>85</TD
+><TD
+>LAWS EDGE+WAVE</TD
+><TD
+>lawsew</TD
+><TD
+>7</TD
+><TD
+>Gr&ouml;&szlig;e 1D Filter (5;7)</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>86</TD
+><TD
+>LAWS SPOT+WAVE</TD
+><TD
+>lawssw</TD
+><TD
+>7</TD
+><TD
+>Gr&ouml;&szlig;e 1D Filter (5;7)</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>87</TD
+><TD
+>LAWS RIPPLE+WAVE</TD
+><TD
+>lawsrw</TD
+><TD
+>7</TD
+><TD
+>Gr&ouml;&szlig;e 1D Filter (5;7)</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>88</TD
+><TD
+>LAWS RIPPLE+LEVEL</TD
+><TD
+>lawsrl</TD
+><TD
+>7</TD
+><TD
+>Gr&ouml;&szlig;e 1D Filter (5;7)</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>89</TD
+><TD
+>LAWS RIPPLE+EDGE</TD
+><TD
+>lawsre</TD
+><TD
+>7</TD
+><TD
+>Gr&ouml;&szlig;e 1D Filter (5;7)</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>90</TD
+><TD
+>LAWS RIPPLE+SPOT</TD
+><TD
+>lawsrs</TD
+><TD
+>7</TD
+><TD
+>Gr&ouml;&szlig;e 1D Filter (5;7)</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>91</TD
+><TD
+>LAWS RIPPLE+RIPPLE</TD
+><TD
+>lawsrr</TD
+><TD
+>7</TD
+><TD
+>Gr&ouml;&szlig;e 1D Filter (5;7)</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>92</TD
+><TD
+>LAWS LEVEL+RIPPLE</TD
+><TD
+>lawslr</TD
+><TD
+>7</TD
+><TD
+>Gr&ouml;&szlig;e 1D Filter (5;7)</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>93</TD
+><TD
+>LAWS EDGE+RIPPLE</TD
+><TD
+>lawser</TD
+><TD
+>7</TD
+><TD
+>Gr&ouml;&szlig;e 1D Filter (5;7)</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>94</TD
+><TD
+>LAWS SPOT+RIPPLE</TD
+><TD
+>lawssr</TD
+><TD
+>7</TD
+><TD
+>Gr&ouml;&szlig;e 1D Filter (5;7)</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>95</TD
+><TD
+>LAWS OSCILLATION+LEVEL</TD
+><TD
+>lawsol</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>96</TD
+><TD
+>LAWS OSCILLATION+EDGE</TD
+><TD
+>lawsoe</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>97</TD
+><TD
+>LAWS OSCILLATION+SPOT</TD
+><TD
+>lawsos</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>98</TD
+><TD
+>LAWS OSCILLATION+WAVE</TD
+><TD
+>lawsow</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>99</TD
+><TD
+>LAWS OSCILLATION+RIPPLE</TD
+><TD
+>lawsor</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>100</TD
+><TD
+>LAWS OSCILLATION+OSCILLATION</TD
+><TD
+>lawsoo</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>101</TD
+><TD
+>LAWS LEVEL+OSCILLATION</TD
+><TD
+>lawslo</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>102</TD
+><TD
+>LAWS EDGE+OSCILLATION</TD
+><TD
+>lawseo</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>103</TD
+><TD
+>LAWS SPOT+OSCILLATION</TD
+><TD
+>lawsso</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>104</TD
+><TD
+>LAWS WAVE+OSCILLATION</TD
+><TD
+>lawswo</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>105</TD
+><TD
+>LAWS RIPPLE+OSCILLATION</TD
+><TD
+>lawsro</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>106</TD
+><TD
+>HU MOMENT 1</TD
+><TD
+>hu1</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>107</TD
+><TD
+>HU MOMENT 2</TD
+><TD
+>hu2</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>108</TD
+><TD
+>HU MOMENT 3</TD
+><TD
+>hu3</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>109</TD
+><TD
+>HU MOMENT 4</TD
+><TD
+>hu4</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>110</TD
+><TD
+>HU MOMENT 5</TD
+><TD
+>hu5</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>111</TD
+><TD
+>HU MOMENT 6</TD
+><TD
+>hu6</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>112</TD
+><TD
+>HU MOMENT 7</TD
+><TD
+>hu7</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>113</TD
+><TD
+>ZERNIKE MOMENT 1</TD
+><TD
+>zer1</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>114</TD
+><TD
+>ZERNIKE MOMENT 2</TD
+><TD
+>zer2</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>115</TD
+><TD
+>ZERNIKE MOMENT 3</TD
+><TD
+>zer3</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>116</TD
+><TD
+>ZERNIKE MOMENT 4</TD
+><TD
+>zer4</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>117</TD
+><TD
+>ZERNIKE MOMENT 5</TD
+><TD
+>zer5</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>118</TD
+><TD
+>ZERNIKE MOMENT 6</TD
+><TD
+>zer6</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>119</TD
+><TD
+>ZERNIKE MOMENT 7</TD
+><TD
+>zer7</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>120</TD
+><TD
+>ZERNIKE MOMENT 8</TD
+><TD
+>zer8</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>121</TD
+><TD
+>ZERNIKE MOMENT 9</TD
+><TD
+>zer9</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>122</TD
+><TD
+>ZERNIKE MOMENT 10</TD
+><TD
+>zer10</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>123</TD
+><TD
+>ZERNIKE MOMENT 11</TD
+><TD
+>zer11</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>124</TD
+><TD
+>ZERNIKE MOMENT 12</TD
+><TD
+>zer12</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>125</TD
+><TD
+>ZERNIKE MOMENT 13</TD
+><TD
+>zer13</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>126</TD
+><TD
+>ZERNIKE MOMENT 14</TD
+><TD
+>zer14</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>127</TD
+><TD
+>ZERNIKE MOMENT 15</TD
+><TD
+>zer15</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>128</TD
+><TD
+>ZERNIKE MOMENT 16</TD
+><TD
+>zer16</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>129</TD
+><TD
+>ZERNIKE MOMENT 17</TD
+><TD
+>zer17</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>130</TD
+><TD
+>ZERNIKE MOMENT 18</TD
+><TD
+>zer18</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>131</TD
+><TD
+>ZERNIKE MOMENT 19</TD
+><TD
+>zer19</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>132</TD
+><TD
+>ZERNIKE MOMENT 20</TD
+><TD
+>zer20</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>133</TD
+><TD
+>ZERNIKE MOMENT 21</TD
+><TD
+>zer21</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>134</TD
+><TD
+>ZERNIKE MOMENT 22</TD
+><TD
+>zer22</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>135</TD
+><TD
+>ZERNIKE MOMENT 23</TD
+><TD
+>zer23</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>136</TD
+><TD
+>ZERNIKE MOMENT 24</TD
+><TD
+>zer24</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>137</TD
+><TD
+>ZERNIKE MOMENT 25</TD
+><TD
+>zer25</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>138</TD
+><TD
+>ZERNIKE MOMENT 26</TD
+><TD
+>zer26</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>139</TD
+><TD
+>ZERNIKE MOMENT 27</TD
+><TD
+>zer27</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>140</TD
+><TD
+>ZERNIKE MOMENT 28</TD
+><TD
+>zer28</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>141</TD
+><TD
+>ZERNIKE MOMENT 29</TD
+><TD
+>zer29</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>142</TD
+><TD
+>ZERNIKE MOMENT 30</TD
+><TD
+>zer30</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>143</TD
+><TD
+>ZERNIKE MOMENT 31</TD
+><TD
+>zer31</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>144</TD
+><TD
+>ZERNIKE MOMENT 32</TD
+><TD
+>zer32</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>145</TD
+><TD
+>Short Run Emphasis</TD
+><TD
+>rlmsre</TD
+><TD
+>0; 16</TD
+><TD
+>Winkel NB(0°, 90°)</TD
+><TD
+>Anzahl Grauwerte</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>146</TD
+><TD
+>Long Run Emphasis</TD
+><TD
+>rlmlre</TD
+><TD
+>0; 16</TD
+><TD
+>Winkel NB(0°, 90°)</TD
+><TD
+>Anzahl Grauwerte</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>147</TD
+><TD
+>Low Grey-Level Run Emphasis</TD
+><TD
+>rlmlgre</TD
+><TD
+>0; 16</TD
+><TD
+>Winkel NB(0°, 90°)</TD
+><TD
+>Anzahl Grauwerte</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>148</TD
+><TD
+>High Grey-Level Run Emphasis</TD
+><TD
+>rlmhgre</TD
+><TD
+>0; 16</TD
+><TD
+>Winkel NB(0°, 90°)</TD
+><TD
+>Anzahl Grauwerte</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>149</TD
+><TD
+>Short Run Low Grey-Level Emphasis</TD
+><TD
+>rlmsrlge</TD
+><TD
+>0; 16</TD
+><TD
+>Winkel NB(0°, 90°)</TD
+><TD
+>Anzahl Grauwerte</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>150</TD
+><TD
+>Short Run High Grey-Level Emphasis</TD
+><TD
+>rlmshrge</TD
+><TD
+>0; 16</TD
+><TD
+>Winkel NB(0°, 90°)</TD
+><TD
+>Anzahl Grauwerte</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>151</TD
+><TD
+>Long Run Low Grey-Level Emphasis</TD
+><TD
+>rlmlrlge</TD
+><TD
+>0; 16</TD
+><TD
+>Winkel NB(0°, 90°)</TD
+><TD
+>Anzahl Grauwerte</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>152</TD
+><TD
+>Long Run High Grey-Level Emphasis</TD
+><TD
+>rlmlrhge</TD
+><TD
+>0; 16</TD
+><TD
+>Winkel NB(0°, 90°)</TD
+><TD
+>Anzahl Grauwerte</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>153</TD
+><TD
+>Grey-Level Nonuniformity</TD
+><TD
+>rlmglnu</TD
+><TD
+>0; 16</TD
+><TD
+>Winkel NB(0°, 90°)</TD
+><TD
+>Anzahl Grauwerte</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>154</TD
+><TD
+>Run Length Nonuniformity</TD
+><TD
+>rlmrlnu</TD
+><TD
+>0; 16</TD
+><TD
+>Winkel NB(0°, 90°)</TD
+><TD
+>Anzahl Grauwerte</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>155</TD
+><TD
+>Run Percentage</TD
+><TD
+>rlmrpc</TD
+><TD
+>0; 16</TD
+><TD
+>Winkel NB(0°, 90°)</TD
+><TD
+>Anzahl Grauwerte</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>156</TD
+><TD
+>Teilobjekt Fl&auml;che MAX/MIN</TD
+><TD
+>toflaeche</TD
+><TD
+>128</TD
+><TD
+>SW f&uuml;r Bin&auml;rbild</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>157</TD
+><TD
+>Teilobjekt Eulerzeil</TD
+><TD
+>toeuler</TD
+><TD
+>128</TD
+><TD
+>SW f&uuml;r Bin&auml;rbild</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>158</TD
+><TD
+>Teilobjekt mittl. Distanz zum Schwerpunkt</TD
+><TD
+>todisma</TD
+><TD
+>128</TD
+><TD
+>SW f&uuml;r Bin&auml;rbild</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>159</TD
+><TD
+>Teilobjekt Varianz Distanz-Schwerpunkt</TD
+><TD
+>tovardisma</TD
+><TD
+>128</TD
+><TD
+>SW f&uuml;r Bin&auml;rbild</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>160</TD
+><TD
+>Teilobjekt DIS.M.-Schwerpunkt MAX/MIN</TD
+><TD
+>todismaver</TD
+><TD
+>128</TD
+><TD
+>SW f&uuml;r Bin&auml;rbild</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>161</TD
+><TD
+>Teilobjekt Kantenpixel</TD
+><TD
+>toedge</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>162</TD
+><TD
+>Edgeness Factor</TD
+><TD
+>edgef</TD
+><TD
+>3</TD
+><TD
+>Abstand NB</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>163</TD
+><TD
+>Gabor Energie</TD
+><TD
+>gaben</TD
+><TD
+>2;0;1;1</TD
+><TD
+>Wellenl&auml;nge &#62;=2</TD
+><TD
+>Orientierung 0...360</TD
+><TD
+>Seitenverh&auml;ltnis &#62; 0</TD
+><TD
+>Bandbreite &#62; 0</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>164</TD
+><TD
+>Euler Vector Bit 7</TD
+><TD
+>eul7</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>165</TD
+><TD
+>Euler Vector Bit 6</TD
+><TD
+>eul6</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>166</TD
+><TD
+>Euler Vector Bit 5</TD
+><TD
+>eul5</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>167</TD
+><TD
+>Euler Vector Bit 4</TD
+><TD
+>eul4</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>168</TD
+><TD
+>Dominanter Grauwert</TD
+><TD
+>domgw</TD
+><TD
+>16</TD
+><TD
+>Anzahl Grauwert</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+><TR
+><TD
+>169</TD
+><TD
+>Dominater Grauwertanteil</TD
+><TD
+>domgwt</TD
+><TD
+>16</TD
+><TD
+>Anzahl Grauwerte</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+><TD
+>-</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>Verwendete Abk&uuml;rzungen:
+      <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+>NB: Nachbarpixel</TD
+></TR
+><TR
+><TD
+>SP: Sch&auml;rfeparameter</TD
+></TR
+><TR
+><TD
+>SW: Schwellwert</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="SAVEMASK"
+>10.3. savemask - Speichern der Merkmalsmaske</A
+></H3
+><P
+>Die gesetzte Merkmalsmaske wird zeilenweise
+	gespeichert. Zus&auml;tzlich werden ggf. vorhandene Merkmalsparameter
+	gesichert. Automatisch wird der
+	Suffix <TT
+CLASS="FILENAME"
+>.msk</TT
+> angeh&auml;ngt.</P
+><P
+><B
+CLASS="COMMAND"
+>savemask</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>dateiname</I
+></TT
+> </P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="LOADMASK"
+>10.4. loadmask - Laden der Merkmalsmaske</A
+></H3
+><P
+>Eine gespeicherte Merkmalsmaske wird geladen. Der Dateiname wird
+	ohne Suffix angegeben.</P
+><P
+><B
+CLASS="COMMAND"
+>loadmask</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>dateiname</I
+></TT
+> </P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="MERKEX"
+>10.5. merkex - Bestimmen der Merkmale</A
+></H3
+><P
+>Von regionensegmentierten Objekten in einem Bild
+	werden die Merkmale bestimmt. Dazu ist ein Templatebild notwendig, das
+	aus einem regionensegmentierten Bin&auml;rbild des Grauwertbildes
+	erstellt wurde. Das Templatebild dient als Maskenbild f&uuml;r das
+	Grauwertbild um statistische Merkmale  der  Grauwerte
+	bzw. Texturmerkmale innerhalb eines Objektes zu ermitteln.</P
+><P
+><B
+CLASS="COMMAND"
+>merkex</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Templatebildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Anzeige</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Objektnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Grauwertbildnummer</I
+></TT
+> </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><CODE
+CLASS="PARAMETER"
+>Templatebildnummer</CODE
+></DT
+><DD
+><P
+>Bildnummer des regionensegmentierten Bildes</P
+></DD
+><DT
+><CODE
+CLASS="PARAMETER"
+>Anzeige</CODE
+></DT
+><DD
+><P
+></P
+><UL
+><LI
+><P
+>0: keine Anzeige von Merkmalen w&auml;hrend der
+		  Extraktion</P
+></LI
+><LI
+><P
+>1: Anzeige der ermittelten Merkmale</P
+></LI
+></UL
+></DD
+><DT
+><CODE
+CLASS="PARAMETER"
+>Objektnummer</CODE
+></DT
+><DD
+><P
+></P
+><UL
+><LI
+><P
+>0: Merkmale aller gültigen Objekte werden bestimmt</P
+></LI
+><LI
+><P
+>&gt;0: Merkmale des Objektes mit der
+		  <CODE
+CLASS="PARAMETER"
+>Objektnummer</CODE
+> werden bestimmt</P
+></LI
+></UL
+></DD
+><DT
+><CODE
+CLASS="PARAMETER"
+>Grauwertbildnummer</CODE
+></DT
+><DD
+><P
+>Bildnummer des zum regionensegmentierten Bildes
+	      korrespondierenden Grauwertbildes</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="SAVEMLIST"
+>10.6. savemlist - Speichern der Merkmalsliste</A
+></H3
+><P
+>Die Merkmalsliste wird als tabellarische ASCII-Datei
+	gespeichert. Ohne Exportoption wird automatisch der
+	Suffix <TT
+CLASS="FILENAME"
+>.lst</TT
+> angeh&auml;ngt.Die Parameter
+	<CODE
+CLASS="PARAMETER"
+>Klassenname</CODE
+> und
+	<CODE
+CLASS="PARAMETER"
+>M&ouml;glicheKlassen</CODE
+> sind nur mit den Optionen
+	-weka und -wekaappend von Bedeutung.</P
+><P
+><B
+CLASS="COMMAND"
+>savemlist</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Dateiname</I
+></TT
+>  [-weka | -wekaappend | -csvde | -csven] [<TT
+CLASS="REPLACEABLE"
+><I
+>Klassenname</I
+></TT
+>] [<TT
+CLASS="REPLACEABLE"
+><I
+>M&ouml;glicheKlassen</I
+></TT
+>...]</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>-weka -wekaappend -csvde -csven</DT
+><DD
+><P
+></P
+><UL
+><LI
+><P
+>-weka: Export ins ARFF Dateiformat der Data Mining
+		  Software WEKA. Es kann ein Klassenname vergeben werden, um in
+		WEKA einen Klassifikator &uuml;berwacht anzulernen.Ist nur
+		  gültig wenn das -weka Flag und Objekt ID gesetzt
+		  sind. </P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN3575"
+></A
+><P
+><B
+>Beispiel 36.  Die gespeicherte Liste enhält Objekte die als
+		    ''Mitose'' klassifiziert wurden (Lernliste).</B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>savemlist LernListe -weka Mitose</PRE
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN3578"
+></A
+><P
+><B
+>Beispiel 37. Speichert eine neue Weka ARFF Datei und
+		    "klassifiziert" jedes Objekt als unbekannt (?). Im Testset
+		    von WEKA k&ouml;nnen die Klassen ''Artefakte'',
+		    ''Interphasen'' und ''Mitose''  vorkommen
+		    (Clusteranalyse)</B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>savemlist ClusterListe -weka ? Artefakt,Interphase,Mitose</PRE
+></DIV
+></LI
+><LI
+><P
+>-wekaappend: Eine Objektliste wird an eine bereits
+		  vorhandene ARFF-Datei angehängt. Im Kopf wird auch der neue
+		  Klassenname eingetragen</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN3583"
+></A
+><P
+><B
+>Beispiel 38. Eine Liste von Lerndaten wird um die neue Klasse
+		    ''Telophase'' erweitert. </B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>savemlist LernListe -wekaappend Telophase</PRE
+></DIV
+></LI
+><LI
+><P
+>-csvde: Export ins CSV Dateiformat (deutsche Version:
+		  Seperator: <TT
+CLASS="LITERAL"
+>';'</TT
+> Dezimalzeichen:
+		  <TT
+CLASS="LITERAL"
+>','</TT
+>)</P
+></LI
+><LI
+><P
+>-csven: Export ins CSV Dateiformat (allg. Version:
+		  Seperator: <TT
+CLASS="LITERAL"
+>','</TT
+> Dezimalzeichen:
+		  <TT
+CLASS="LITERAL"
+>'.'</TT
+>)</P
+></LI
+></UL
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="LOADMLIST"
+>10.7. loadmlist - Laden einer Merkmalsliste</A
+></H3
+><P
+>Laden einer gespeicherten Merkmalsliste, die ohne Exportoption mit
+	<A
+HREF="#SAVEMLIST"
+>savemlist</A
+> gespeichert wurde. Der
+	Dateiname wird ohne Suffix angegeben. Eine sich
+	im Speicher befindliche Liste  wird &uuml;berschrieben.</P
+><P
+><B
+CLASS="COMMAND"
+>loadmlist</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Dateiname</I
+></TT
+> </P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="CLEARMLIST"
+>10.8. clearmlist - L&ouml;schen der Merkmalsliste</A
+></H3
+><P
+>L&ouml;schen der im Hauptspeicher befindlichen Merkmalsliste. Dies
+	ist z.B. immer dann notwendig, wenn die Merkmalsmaske ver&auml;ndert wird
+	und eine neue Merkmalsextraktion erfolgen soll.</P
+><P
+><B
+CLASS="COMMAND"
+>clearmlist</B
+> </P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="APPENDMLIST"
+>10.9. appendmlist - Anh&auml;ngen an einer Merkmalsliste</A
+></H3
+><P
+>Laden einer gespeicherten Merkmalsliste, die ohne Exportoption mit
+	<A
+HREF="#SAVEMLIST"
+>savemlist</A
+> gespeichert wurde und
+	Anh&auml;ngen an die im Hauptspeicher befindliche Merkmalsliste. Dabei
+	m&uuml;ssen beide Merkmalsmasken &uuml;bereinstimmen. Der Dateiname wird
+	ohne Suffix angegeben.</P
+><P
+><B
+CLASS="COMMAND"
+>appendmlist</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Dateiname</I
+></TT
+> </P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="FILTERMLIST"
+>10.10. filtermlist - Filterung vorgegebener Merkmale</A
+></H3
+><P
+>Die Funktion durchsucht die Merkmalsliste und bel&auml;sst alle
+	Objekte in der Liste, die die angegebene Bedingung erfüllen.</P
+><P
+><B
+CLASS="COMMAND"
+>filtermlist</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Merkmalsindex</I
+></TT
+>  {&lt; | &gt; | =}  <TT
+CLASS="REPLACEABLE"
+><I
+>Bezugswert</I
+></TT
+> </P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="MERK2D"
+>10.11. merk2d - Darstellung eines 2D-Merkmalsraumes</A
+></H3
+><P
+>Anzeige der Verteilung von 2 Merkmalen in einem zweidimensionalen
+	Histogramm (2D- Merkmalsraum). Durch Markieren eines Rechteckbereiches
+	im Merkmalsraum, k&ouml;nnen alle Objekte, deren Eigenschaften
+	ausserhalb dieses Bereiches liegen, aus der Merkmalsliste gel&ouml;scht
+	werden.</P
+><P
+><B
+CLASS="COMMAND"
+>merk2d</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Merkmal1</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Merkmal2</I
+></TT
+> </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><CODE
+CLASS="PARAMETER"
+>Merkmal1</CODE
+></DT
+><DD
+><P
+>Index des Merkmals, dessen Wert in x-Richtung festgelegt
+	      ist.</P
+></DD
+><DT
+>Merkmal2</DT
+><DD
+><P
+>Index des Merkmals, dessen Wert in y-Richtung 
+	      festgelegt ist.</P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="SECT1"
+><HR><H2
+CLASS="SECT1"
+><A
+NAME="AEN3647"
+>11. Objektklassifikation mit numerischen Klassifikatoren</A
+></H2
+><P
+>Die Funktionen f&uuml;r die Klassifikation unterteilen sich in
+      folgende Bereiche:
+      <P
+></P
+><UL
+><LI
+><P
+><A
+HREF="#LEARN"
+>Lernphase</A
+></P
+><P
+><A
+HREF="#RECOGNIZE"
+>Erkennungphase</A
+></P
+><P
+><A
+HREF="#SETMMASKE"
+>Hilfsfunktionen</A
+></P
+></LI
+></UL
+>
+    </P
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="LEARN"
+>11.1. learn - Anlernen des Klassifikators</A
+></H3
+><P
+>Ein Klassifikator kann durch 2 Verfahren angelernt
+	werden:</P
+><P
+></P
+><UL
+><LI
+><P
+>Verwendung einer gespeicherten Merkmalsliste, die die
+	      Eigenschaften einer Objektart enth&auml;lt</P
+><P
+><B
+CLASS="COMMAND"
+>learn</B
+>   m   <TT
+CLASS="REPLACEABLE"
+><I
+>Merkmalslistenname</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Klassenname</I
+></TT
+> </P
+></LI
+><LI
+><P
+>Verwendung von Bildvorlagen mit einer Art von Objekten im
+	      Bild</P
+><P
+><B
+CLASS="COMMAND"
+>learn</B
+>   b   <TT
+CLASS="REPLACEABLE"
+><I
+>Templatebildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Grauwertbildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Klassenname</I
+></TT
+> </P
+></LI
+></UL
+><P
+>Bereits angelernte Klassen k&ouml;nnen angezeigt werden
+	durch:</P
+><P
+><B
+CLASS="COMMAND"
+>learn</B
+>   z </P
+><P
+>Die Lerngrundlage ist f&uuml;r beide Verfahren die Merkmalsliste  (siehe auch
+	Kommando <A
+HREF="#MERKEX"
+>merkex</A
+>). Bei der Verwendung von
+	  Bildvorlagen muss vorher noch die Merkmalsmaske gesetzt werden
+	(Kommando <A
+HREF="#SETMASK"
+>setmask</A
+>). Um eine Kennzeichnung der
+	  klassifizierten Objekte in einem Bild vornehmen zu k&ouml;nnen, m&uuml;ssen
+	  folgende Merkmale ebenfalls bestimmt werden:</P
+><P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+>die Fl&auml;chenschwerpunktkoordinaten xs und ys</TD
+></TR
+><TR
+><TD
+>der maximale Radius um den Schwerpunkt grs</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+><P
+>Ist der Lernvorgang abgeschlossen, wird die interne Merkmalsliste
+	gel&ouml;scht (Kommando <A
+HREF="#CLEARMLIST"
+>clearmlist</A
+>). Die f&uuml;r die
+	Klassifikation einzubeziehenden Merkmale sind mit dem Kommando <A
+HREF="#SETMMASKE"
+>setmmaske</A
+> ver&auml;nderbar. Sinnvoll ist
+	aber nur  eine Abwahl von Merkmalen, die bei der Merkmalsbestimmung
+	ermittelt wurden, aber nicht in die Klassifikation einbezogen werden
+	sollen. Es k&ouml;nnen also h&ouml;chstens die Merkmale f&uuml;r die
+	Klassifikation verwendet werden, die auch vorher bestimmt
+	wurden.</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN3695"
+></A
+><P
+><B
+>Beispiel 39. siehe <A
+HREF="#ANHANG_KLASS"
+>Anhang</A
+></B
+></P
+><P
+></P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="FORGET"
+>11.2. forget - L&ouml;schen einer gelernten Klasse</A
+></H3
+><P
+>Eine bereits angelernte Klasse wird wieder gel&ouml;scht.</P
+><P
+><B
+CLASS="COMMAND"
+>forget</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Klassenname</I
+></TT
+> </P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="RECOGNIZE"
+>11.3. recognize - Erkennen von Objekten</A
+></H3
+><P
+>Die Klassifikation von Objekten erfolgt auf der Basis vorheriger
+	angelernter Musterdaten. Es können unterschiedliche Klassifikatoren
+	gew&auml;hlt werden. Zur Klassifikation wird die Merkmalsliste der
+	unbekannten Objekte herangezogen.</P
+><P
+><B
+CLASS="COMMAND"
+>recognize</B
+>  {q | e | s | d | m} {a | l}</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>q e s d m</DT
+><DD
+><P
+>Klassifikator</P
+><P
+></P
+><UL
+><LI
+><P
+>q: Hyperquader</P
+></LI
+><LI
+><P
+>e: Hyperellipse</P
+></LI
+><LI
+><P
+>s: Hypersphere</P
+></LI
+><LI
+><P
+>d: Minimum Distance</P
+></LI
+><LI
+><P
+>m: Minimum Distance mit Parameter. Hinter der Option
+		  <CODE
+CLASS="PARAMETER"
+>m</CODE
+> kann ohne Leerzeichen ein
+		  numerischer Wert folgen.</P
+></LI
+></UL
+></DD
+><DT
+>a l</DT
+><DD
+><P
+></P
+><UL
+><LI
+><P
+>a: adaptiv, d.h. die Merkmale eines erkannten Objektes
+		  werden der Lernbasis hinzugef&uuml;gt</P
+></LI
+><LI
+><P
+>l: Auflistung der erkannten Objekte</P
+></LI
+></UL
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="SETMMASKE"
+>11.4. setmmaske - Klassifikationsmerkmale festlegen</A
+></H3
+><P
+>Hiermit wird festgelegt, welche Merkmale zur
+	Klassifikation herangezogen werden sollen. Dies kann immer nur eine
+	Teilmenge der Merkmale sein, die in der Merkmalsextraktion bestimmt
+	wurden.</P
+><P
+><B
+CLASS="COMMAND"
+>setmmaske</B
+>  {z | m | s | l | a | n}</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>z m s l a n</DT
+><DD
+><P
+></P
+><UL
+><LI
+><P
+>z: zeigt die Merkmalsmaske an</P
+></LI
+><LI
+><P
+>m: setzt die vollst&auml;ndige Maske (z.B. m
+		  001010011...)</P
+></LI
+><LI
+><P
+>s: setzt ein bestimmtes Merkmal (z.B. s 12)</P
+></LI
+><LI
+><P
+>l: l&ouml;scht ein bestimmtes Merkmal (z.B. l 9)</P
+></LI
+><LI
+><P
+>a: setzt die komplette Maske auf 1</P
+></LI
+><LI
+><P
+>n: setzt die komplette Maske auf 0</P
+></LI
+></UL
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="SHOWCLASSES"
+>11.5. showclasses - Gelernte Klassen anzeigen</A
+></H3
+><P
+>Nach einer abgeschlossenen Lernphase oder dem Laden von gelernten
+	Daten k&ouml;nnen mit diesem Kommando alle Klassen mit Namen und
+	Klassengrenzen der einzelnen Klassifikatoren angezeigt werden. Dieses
+	Kommando ist identisch mit dem Kommando <A
+HREF="#LEARN"
+>learn
+	  z</A
+>.</P
+><P
+><B
+CLASS="COMMAND"
+>showclasses</B
+> </P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="SAVECLASSDATA"
+>11.6. saveclassdata - Sichern von gelernten Daten</A
+></H3
+><P
+>Die gelernten Daten und festgelegten Namen f&uuml;r die Klassen
+	werden in getrennten Dateien gespeichert. Beide
+	  Dateien haben den gleichen Namen aber unterschiedliche Suffixe, die
+	automatisch angeh&auml;ngt werden (Lerndaten <TT
+CLASS="FILENAME"
+>.kls</TT
+>
+	und Namensliste <TT
+CLASS="FILENAME"
+>.nls</TT
+>)</P
+><P
+><B
+CLASS="COMMAND"
+>saveclassdata</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Dateiname</I
+></TT
+> </P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="LOADCLASSDATA"
+>11.7. loadclassdata - Laden der gelernten Daten</A
+></H3
+><P
+>Laden von gelernten Daten und festgelegten Namen f&uuml;r die Klassen
+	aus getrennten Dateien. Beide
+	  Dateien haben den gleichen Namen aber unterschiedliche Suffixe, die
+	automatisch angeh&auml;ngt werden (Lerndaten <TT
+CLASS="FILENAME"
+>.kls</TT
+>
+	und Namensliste <TT
+CLASS="FILENAME"
+>.nls</TT
+>)</P
+><P
+><B
+CLASS="COMMAND"
+>loadclassdata</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Dateiname</I
+></TT
+> </P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="MARK"
+>11.8. mark - Kennzeichnung von Objekten in einem Bild</A
+></H3
+><P
+>Objekte, die in einer Merkmalsliste stehen werden in einem Bild
+	  gekennzeichnet. Voraussetzung dazu ist, dass die
+	  Schwerpunktkoordinaten und der maximale Radius um den Schwerpunkt in
+	  die Merkmalsextraktion einbezogen werden. Mit der rechten Maustaste
+	kann das markierte Bild gespeichert werden.</P
+><P
+><B
+CLASS="COMMAND"
+>mark</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>  {o | k | s}  <TT
+CLASS="REPLACEABLE"
+><I
+>Templatenummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Objektnr_anzeige</I
+></TT
+> </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+></DT
+><DD
+><P
+></P
+><UL
+><LI
+><P
+><CODE
+CLASS="PARAMETER"
+>Bildnummer</CODE
+>: Nummer des f&uuml;r
+		  die Merkmalsliste oder der Klassifikation zugrundeliegenden
+		  Bildes</P
+></LI
+><LI
+><P
+>o: Markierung aller Objekte, die in der Merkmalsliste
+		  stehen (z.B. nach einer Bereinigung der Liste mit dem
+		  Kommando <A
+HREF="#MERK2D"
+>merk2d</A
+>). F&uuml;r
+diese Markierung muss zus&auml;tzlich die Objektnummer als Merkmal gesetzt sein.</P
+></LI
+><LI
+><P
+>k: Markierung aller erkannten Objekte. Alle Objekte
+	      einer Klasse werden mit der gleichen Farbe markiert.</P
+></LI
+><LI
+><P
+>s: Markierung aller Sektoren (die durch das Kommando
+<A
+HREF="#TILE"
+>tile</A
+> erzeugt wurden), die in der Merkmalsliste
+		  stehen (z.B. nach einer Bereinigung der Liste mit dem
+		  Kommando <A
+HREF="#MERK2D"
+>merk2d</A
+>).</P
+></LI
+><LI
+><P
+><CODE
+CLASS="PARAMETER"
+>Templatenummer</CODE
+>: Nummer des
+segmentierten Bildes.</P
+></LI
+><LI
+><P
+>Objektnr_anzeige:</P
+><P
+></P
+><UL
+><LI
+><P
+>1: Anzeige der Objektnummern im markierten Bild</P
+></LI
+><LI
+><P
+>0: keine Anzeige der Bildnummern</P
+></LI
+></UL
+></LI
+></UL
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="EXTRACT"
+>11.9. extract - Klassifizierte Objekte extrahieren</A
+></H3
+><P
+>Klassifizierte Objekte werden als Teilbilder abgespeichert. Dazu
+	ist es notwendig, dass die Schwerpunktkoordinaten ys, xs und
+	gr&ouml;&szlig;ter Radius um den Schwerpunkt bei der Merkmalsextraktion
+	ermittelt werden.</P
+><P
+><B
+CLASS="COMMAND"
+>extract</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Templatebildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Klasse</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Pfad</I
+></TT
+> </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><CODE
+CLASS="PARAMETER"
+>Bildnummer</CODE
+></DT
+><DD
+><P
+>Bildnummer des Ausgangsbildes</P
+></DD
+><DT
+><CODE
+CLASS="PARAMETER"
+>Templatebildnummer</CODE
+></DT
+><DD
+><P
+>Nummer des segmentierten Bildes</P
+></DD
+><DT
+><CODE
+CLASS="PARAMETER"
+>Klasse</CODE
+></DT
+><DD
+><P
+>Nummer der Klasse, deren Objekte extrahiert werden
+	      soll. Ist der Wert 0, werden alle Klassen extrahiert.</P
+></DD
+><DT
+><CODE
+CLASS="PARAMETER"
+>Pfad</CODE
+></DT
+><DD
+><P
+>Pfadname, unter dem die extrahierten Objekte als
+	      Teilbilder abgelegt werden sollen.</P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="SECT1"
+><HR><H2
+CLASS="SECT1"
+><A
+NAME="AEN3874"
+>12. Sonstige Kommandos</A
+></H2
+><P
+>Es werden Kommandos beschrieben, die sich nicht eindeutig in eine der
+    bisherigen Kategorien einordnen lassen.</P
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="KORREL"
+>12.1. korrel - Korrelationsbild mit einem Muster</A
+></H3
+><P
+>Das Ergebnis einer Kreuzkorrelation eines Bildes mit einem Muster
+	wird als Bild generiert.</P
+><P
+><B
+CLASS="COMMAND"
+>korrel</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Musterbildnummer</I
+></TT
+>  [<TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+>]</P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="FOCUS"
+>12.2. focus - Ermittlung eines Sch&auml;rfeparameters</A
+></H3
+><P
+>F&uuml;r ein Bild oder eine Bildserie  k&ouml;nnen nach
+	unterschiedlichen Verfahren der Sch&auml;rfgrad ermittelt werden. Bei
+	einer Bilderserie ist das Bild mit dem gr&ouml;&szlig;eten Wert am
+	sch&auml;rfsten. Dieses Bild wird unter der Zielbildnummer
+	gespeichert.</P
+><P
+><B
+CLASS="COMMAND"
+>focus</B
+>  {tenen | smd | laplace | varianz | all}  <TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnr</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer1</I
+></TT
+>  [<TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer2</I
+></TT
+>...]</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>tenen smd laplace varianz all</DT
+><DD
+><P
+></P
+><UL
+><LI
+><P
+>tenen: Tenengrad</P
+></LI
+><LI
+><P
+>smd: Sum-Modulus-Differenz</P
+></LI
+><LI
+><P
+>all: Ausgabe aller Schärfeparameter</P
+></LI
+></UL
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="COPY"
+>12.3. copy - Bild kopieren</A
+></H3
+><P
+>Kopie eines Bildes unter einer neuen Bildnummer anlegen.</P
+><P
+><B
+CLASS="COMMAND"
+>copy</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Quellbildnummer</I
+></TT
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Zielbildnummer</I
+></TT
+> </P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="DEL"
+>12.4. del - Bilder löschen</A
+></H3
+><P
+>Es k&ouml;nnen ein oder mehrere Bilder aus dem Hauptspeicher
+	entfernt werden.</P
+><P
+><B
+CLASS="COMMAND"
+>del</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer1</I
+></TT
+>... </P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="INFO"
+>12.5. info - Anzeige von Bildinformationen</A
+></H3
+><P
+>Anzeige der Bildgr&ouml;&szlig;e und Grauwertstatistik eines
+	Bildes.</P
+><P
+><B
+CLASS="COMMAND"
+>info</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>Bildnummer</I
+></TT
+> </P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="BEEP"
+>12.6. beep - Akustisches Signal</A
+></H3
+><P
+>Erzeugt einen Signalton, der in Makros verwendet werden kann um
+	einen Bearbeitungsstand oder das Ende des Makros zu
+	signalisieren.</P
+><P
+><B
+CLASS="COMMAND"
+>beep</B
+> </P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="HELP"
+>12.7. ? - Kurzhilfe</A
+></H3
+><P
+>Ausgabe einer Kurzhilfe f&uuml;r ein Kommando. Ohne Parameter
+	werden alle verf&uuml;gbare Kommandos ausgegeben.</P
+><P
+><B
+CLASS="COMMAND"
+>?</B
+>  [<TT
+CLASS="REPLACEABLE"
+><I
+>Kommandoname</I
+></TT
+>]</P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="QUIT"
+>12.8. quit - Programm beenden</A
+></H3
+><P
+><B
+CLASS="COMMAND"
+>quit</B
+> </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT1"
+><HR><H2
+CLASS="SECT1"
+><A
+NAME="AEN3955"
+>13. Komplexe Bildverarbeitungsbeispiele</A
+></H2
+><DIV
+CLASS="SECT2"
+><H3
+CLASS="SECT2"
+><A
+NAME="ANHANG_SEG"
+>13.1. Segmentierungsbeispiele</A
+></H3
+><P
+>Vorgestellt werden Segmentierungsbeispiele f&uuml;r verschiedene
+	Anwendungsf&auml;lle &uuml;ber mehrere	Verarbeitungsschritte. </P
+><DIV
+CLASS="SECT3"
+><HR><H4
+CLASS="SECT3"
+><A
+NAME="AEN3960"
+>13.1.1. Segmentierung eines Grauwertbildes mittels
+	  Wasserscheidetransformation</A
+></H4
+><P
+><PRE
+CLASS="PROGRAMLISTING"
+>picread 0                      # interaktive Bildauswahl
+show 0 2                       # Bildanzeige
+sepfilter mittel5 0 1          # Bildgl&auml;ttung
+binm 1 2 -auto1                # Binarisierung
+distance 2 3                   # Vorbereitung der Trennung sich ber&uuml;hrender Objekte
+gwm neg 3                      # Negation des Bildes (LUT berechnen)
+lutap 3 4                      # LUT auf die Grauwerte anwenden
+sepfilter mittel5 4 5          # Bildgl&auml;ttung
+sepregion 5 6 0 254            # Wasserscheidetransformation
+joinregion 0 6 7 groesse 300   # Zusammenfassung von Regionen 
+show 7 1                       # Bildanzeige</PRE
+></P
+></DIV
+><DIV
+CLASS="SECT3"
+><HR><H4
+CLASS="SECT3"
+><A
+NAME="AEN3964"
+>13.1.2. Farbsegmentierung mit unterschiedlichen Farbmodellen</A
+></H4
+><P
+>Beispiel</P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="AEN3967"
+>13.2. Merkmalsextraktion und Objektselektierung</A
+></H3
+><DIV
+CLASS="SECT3"
+><H4
+CLASS="SECT3"
+><A
+NAME="AEN3969"
+>13.2.1. Objektsegmentierung und Merkmalsextraktion</A
+></H4
+><P
+>Vereinzelte Objekte in einem Bild werden mittels
+	  Zeilenkoinzidenz-Verfahren segmentiert. Von den resultierenden
+	  Objekten werden verschiedenen Merkmale bestimmt.</P
+><PRE
+CLASS="PROGRAMLISTING"
+>picread 0         # interaktive Bildauswahl
+binm 0 1 -auto1   # Binarisierung
+seg 1 8 2         # Segmentierung (8-er Nachbarschaft)
+setmask 4 1       # Objektfl&auml;che setzen
+setmask 5 1       # Objektumfang setzen
+setmask 8 1       # Formfaktor setzten
+merkex 2 1 0 0    # gesetzte Merkmale bestimmen</PRE
+></DIV
+><DIV
+CLASS="SECT3"
+><HR><H4
+CLASS="SECT3"
+><A
+NAME="AEN3973"
+>13.2.2. Objektmerkmale auf das gesamte Bild anwenden</A
+></H4
+><P
+>Das gesamte Bild kann als ein Objekt betrachtet werden. Damit sind
+	alle Objektmerkmale auch auf das Gesamtbild anwendbar.</P
+><PRE
+CLASS="PROGRAMLISTING"
+>clearmlist        # alte Merkmalsliste l&ouml;schen
+picread 0         # interaktive Bildauswahl
+tile 0 1 1 1 1    # Bild als eine Kachel mit einem Rand von einem Pixel
+binm 1 2 0        # Binarisierung (Bildung des Templatebildes)
+setmask 15 1      # Merkmal setzten (hier mittlere Grauwert)
+merkex 2 1 0 0    # Merkmalsbestimmung</PRE
+></DIV
+><DIV
+CLASS="SECT3"
+><HR><H4
+CLASS="SECT3"
+><A
+NAME="AEN3977"
+>13.2.3. Markierung von Objekten</A
+></H4
+><P
+>Es werden alle Objekte markiert, deren maximaler Grauwert
+	  &uuml;ber 170 liegt</P
+><PRE
+CLASS="PROGRAMLISTING"
+>clearmlist
+setmask 0 1                      # ObjektID setzen
+setmask 6 1                      # x-Koord. des Schwerpunktes setzen
+setmask 7 1                      # y-Koord. des Schwerpunktes setzen
+setmask 11 1                     # max. Radius um den Schwerpunkt setzen
+setmask 36 1                     # max. Grauwert setzen
+picread 0                        # interaktive Bildauswahl
+sepfilter mittel5 0 1            # Bild gl&auml;tten
+binm 1 2 -auto1                  # Binarisierung
+distance 2 3                     # Vorbereitung der Trennung sich ber&uuml;hrender Objekte
+gwm neg 3                        # Bild negieren (Hintergrund muss wei&szlig; sein)  (LUT berechnen)
+lutap 3 4                        # LUT auf die Grauwerte anwenden
+sepfilter mittel5 4 5            # Bild gl&auml;tten 
+sepregion 5 6 0 254              # Segmentierung mittels Wasserscheidetransformation
+joinregion 0 6 7 groesse 300     # Zusammenfassung von Regionen
+merkex 7 0 0 0                   # Bestimmung der Objektmerkmale (wurden Oben gesetzt)
+filtermlist 36 &#62; 170             # Alle Objekte mit MAXGW &#62; 170 in der Merkmalsliste belassen
+mark o 0                         # Objekte der Merkmalsliste im Bild markieren</PRE
+></DIV
+><DIV
+CLASS="SECT3"
+><HR><H4
+CLASS="SECT3"
+><A
+NAME="AEN3981"
+>13.2.4. Objekte als Teilbilder speichern</A
+></H4
+><P
+>Es werden alle Objekte, deren maximaler Grauwert &uuml;ber 170
+	  liegt, als Teilbilder in das Unterverzeichnis
+	  <TT
+CLASS="FILENAME"
+>./hell</TT
+> abgelegt.</P
+><PRE
+CLASS="PROGRAMLISTING"
+>clearmlist
+setmask 0 1                      # ObjektID setzen
+setmask 6 1                      # x-Koord. des Schwerpunktes setzen
+setmask 7 1                      # y-Koord. des Schwerpunktes setzen
+setmask 11 1                     # max. Radius um den Schwerpunkt setzen
+setmask 36 1                     # max. Grauwert setzen
+picread 0                        # interaktive Bildauswahl
+sepfilter mittel5 0 1            # Bild gl&auml;tten
+binm 1 2 -auto1                  # Binarisierung
+distance 2 3                     # Vorbereitung der Trennung sich ber&uuml;hrender Objekte
+gwm neg 3                        # Bild negieren (Hintergrund muss wei&szlig; sein)  (LUT berechnen)
+lutap 3 4                        # LUT auf die Grauwerte anwenden
+sepfilter mittel5 4 5            # Bild gl&auml;tten 
+sepregion 5 6 0 254              # Segmentierung mittels Wasserscheidetransformation
+joinregion 0 6 7 groesse 300     # Zusammenfassung von Regionen
+merkex 7 0 0 0                   # Bestimmung der Objektmerkmale (wurden Oben gesetzt)
+filtermlist 36 &#62; 170             # Alle Objekte mit MAXGW &#62; 170 in der Merkmalsliste belassen
+extract 0 7 0 ./hell/            # Teilbilder in das Unterverzeichnis <TT
+CLASS="FILENAME"
+>./hell</TT
+> speichern</PRE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H3
+CLASS="SECT2"
+><A
+NAME="ANHANG_KLASS"
+>13.3. Klassifikationsbeispiele</A
+></H3
+><DIV
+CLASS="SECT3"
+><H4
+CLASS="SECT3"
+><A
+NAME="AEN3989"
+>13.3.1. Anlernen mittels Merkmalslisten</A
+></H4
+><P
+>Beispiel</P
+></DIV
+><DIV
+CLASS="SECT3"
+><HR><H4
+CLASS="SECT3"
+><A
+NAME="AEN3992"
+>13.3.2. Anlernen mittel Bildvorlagen</A
+></H4
+><P
+>Beispiel</P
+></DIV
+><DIV
+CLASS="SECT3"
+><HR><H4
+CLASS="SECT3"
+><A
+NAME="AEN3995"
+>13.3.3. Klassifikation von Objekten aus einer Merkmalsliste</A
+></H4
+><P
+>Beispiel</P
+></DIV
+><DIV
+CLASS="SECT3"
+><HR><H4
+CLASS="SECT3"
+><A
+NAME="AEN3998"
+>13.3.4. Klassifikation von Objekten aus einer Bildvorlage</A
+></H4
+><P
+>Beispiel:
+	  Die Klassifikation von Objekten erfolgt auf der Basis der
+	  Merkmalsliste.
+	  Um die Erkennung vorzubereiten sind folgende Schritte notwendig:
+	  <P
+></P
+><UL
+><LI
+><P
+>Eventuelle Vorverarbeitung des Bildes</P
+></LI
+><LI
+><P
+>Segmentierung des Bildes (Erzeugung eines
+	      Templatebildes)</P
+></LI
+><LI
+><P
+>L&ouml;schen einer eventuell vorhandenen
+		Merkmalsliste</P
+></LI
+><LI
+><P
+>Aufruf der Merkmalsextraktion</P
+></LI
+><LI
+><P
+>Aufruf des Klassifikators</P
+></LI
+></UL
+>
+	</P
+></DIV
+></DIV
+></DIV
+></DIV
+></BODY
+></HTML
+>

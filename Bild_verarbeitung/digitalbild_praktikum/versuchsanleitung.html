@@ -1,0 +1,1192 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Digitale Bildverarbeitung - Versuchsanleitung </TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"></HEAD
+><BODY
+CLASS="BOOK"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="BOOK"
+><A
+NAME="AEN1"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="TITLE"
+><A
+NAME="AEN2"
+>Digitale Bildverarbeitung - Versuchsanleitung</A
+></H1
+><H3
+CLASS="AUTHOR"
+><A
+NAME="AEN4"
+></A
+>Martin Weigert</H3
+><HR></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Inhaltsverzeichnis</B
+></DT
+><DT
+>1. <A
+HREF="#AEN10"
+>Bildaufnahme und Grauwerttransformation</A
+></DT
+><DT
+>2. <A
+HREF="#AEN47"
+>Shadingkorrektur und Binarisierung</A
+></DT
+><DT
+>3. <A
+HREF="#AEN82"
+>Filterung mittels Faltungsoperatoren</A
+></DT
+><DT
+>4. <A
+HREF="#MORPHO"
+>Morphometrische Filter</A
+></DT
+><DT
+>5. <A
+HREF="#AEN142"
+>Bildarithmetikfunktionen</A
+></DT
+><DT
+>6. <A
+HREF="#AEN170"
+>Segmentierung von Binärbildern</A
+></DT
+><DT
+>7. <A
+HREF="#AEN194"
+>Merkmalsextraktion</A
+></DT
+><DT
+>8. <A
+HREF="#AEN222"
+>Farbraumsegmentierung / Pixelklassifikation</A
+></DT
+></DL
+></DIV
+><DIV
+CLASS="CHAPTER"
+><HR><H1
+><A
+NAME="AEN10"
+></A
+>Kapitel 1. Bildaufnahme und Grauwerttransformation</H1
+><P
+>Ziel ist es, die Methodik der Bilddatenaufnahme zu
+	untersuchen, verschiedene Verfahren der Grauwerttransformation anzuwenden sowie das Auflösungsvermögen einer Kamera abzuschätzen.</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Nehmen Sie mit der Kamera Bilder mit unterschiedlichen
+	  Helligkeiten 	auf und bestimmen Sie die Grauwertverteilung der
+	  Bilder.</P
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Tipp"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><B
+>Hinweise:</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>Ein Bild kann durch das Kommando
+		  <A
+HREF="kommand_help.html#CAPTURE"
+TARGET="_top"
+>capture</A
+> in den
+		  Speicher geladen werden.</P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>Realisieren Sie die unterschiedlichen Helligkeiten durch
+		  Veränderung der Blende an der Kamera. Achten Sie dabei
+		  darauf, dass keine Übersteuerung des Kamerasignales
+                  auftritt.</P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>Die Grauwertverteilung kann durch das Kommando
+		  <A
+HREF="kommand_help.html#HISTOGRAF"
+TARGET="_top"
+>histograf</A
+>
+		  angezeigt werden.</P
+></LI
+></UL
+>
+	  </P
+></TD
+></TR
+></TABLE
+></DIV
+></LI
+><LI
+><P
+>Nehmen Sie ein sehr dunkles Bild auf (z.B. ohne zusätzliche
+	  Beleuchtung und mit großer Blendenzahl). Verbessern Sie die
+	  Sichtbarkeit des Bildes durch:</P
+><P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>Anwendung von Pseudofarben (Nutzen Sie dazu das
+	      Kommando <A
+HREF="kommand_help.html#SHOW"
+TARGET="_top"
+>show</A
+>  mit
+	      der Anzeigeoption 1 oder 2),</P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>Anwendunge verschiedener Verfahren der Kontrastmodifikation (Kommandos <A
+HREF="kommand_help.html#GWM"
+TARGET="_top"
+>gwm</A
+> und <A
+HREF="kommand_help.html#LUTAP"
+TARGET="_top"
+>lutap</A
+>). Welche Verfahren mit welchen Parametern liefern besser sichtbare Bilder?  
+	    </P
+></LI
+></UL
+></LI
+><LI
+><P
+>Nehmen Sie mit der Kamera Bilder von den Testvorlagen
+	    "RESOLUTION CHART"  und des Star Targets auf. Achten Sie dabei auf
+	    eine möglichst scharfe Einstellung.</P
+><P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>Werten Sie die Aufnahme bezüglich des horizontalen und
+		vertikalen Auflösungsvermögens der Kamera aus.</P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>Welche Aussagen lassen sich zum Auflösungsvermögen der
+		Kamera machen?</P
+></LI
+></UL
+></LI
+><LI
+><P
+>Nehmen Sie mit der Kamera Bilder durch verschiedene
+	  Farbfilter auf. Setzten Sie den Rot- Gr&uuml;n- und Blau-Auszug zu
+einem  Farbbild zusammen. In der Regel werden die zusammengesetzten Bilder
+	  Farbstiche aufweisen. Beschreiben Sie ein Verfahren, das Farbstiche
+beseitigt und wenden Sie es auf das vorliegende Bild an. </P
+></LI
+></OL
+></DIV
+><DIV
+CLASS="CHAPTER"
+><HR><H1
+><A
+NAME="AEN47"
+></A
+>Kapitel 2. Shadingkorrektur und Binarisierung</H1
+><P
+>Ziel ist es, sich mit der Korrekturmöglichkeit für ungleichmäßig
+	beleuchtete Bilder  vertraut zu machen und die Möglichkeiten unterschiedlicher Binarisierungsverfahren zu untersuchen.</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Laden Sie ein Bild, das mit seitlicher Beleuchtung aufgenommen
+	  wurde (<TT
+CLASS="FILENAME"
+>blatt.bmp</TT
+>).</P
+><P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>Binarisieren Sie das Grauwertbild vor und nach der
+Shading-Korrektur mit einer globalen Binarisierungsschwelle.</P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>Vergleichen Sie die Ergebnisse der Binarisierung des
+        ungleichmäßig ausgeleuchtetem Bild und dem korrigierten Bild.</P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>Vergleichen Sie die Profilschnitte (Kommando
+	  <A
+HREF="kommand_help.html#PROFIL"
+TARGET="_top"
+>profil schnitt</A
+> ) des
+	  unkorrigierten und   korrigierten Grauwertbildes.</P
+></LI
+></UL
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Tipp"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><B
+>Hinweise:</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>Verwenden Sie als Dunkel- und Hellfeld die Dateien
+		  <TT
+CLASS="FILENAME"
+>dunkel.bmp</TT
+> und
+		  <TT
+CLASS="FILENAME"
+>hell.bmp</TT
+>.</P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>Führen Sie die Binarisierung durch die manuelle
+		  Einstellung der Binarisierungsschwelle durch. Verwenden Sie
+		  dazu das Kommando <A
+HREF="kommand_help.html#HISTOGRAF"
+TARGET="_top"
+>histograf</A
+>. Durch 
+		  Bewegung des grünen Balkens im Histogramm wird die
+		  Binarisierungsschwelle eingestellt. Die eigentliche
+		  Binarisierung erfolgt mit dem Kommando
+		  <A
+HREF="kommand_help.html#BINM"
+TARGET="_top"
+>binm</A
+>.</P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>Die Shading-Korrektur wird durch das Kommando
+		  <A
+HREF="kommand_help.html#SHAD"
+TARGET="_top"
+>shad </A
+>
+		  realisiert. Das Ergebnisbild liegt 
+		  auf der Nummer des unkorrigierten Bildes.</P
+></LI
+></UL
+>	  
+	  </P
+></TD
+></TR
+></TABLE
+></DIV
+></LI
+><LI
+><P
+>Binarisieren Sie das Bild <TT
+CLASS="FILENAME"
+>objektvorlage.jpg</TT
+>
+so, dass <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>alle</I
+></SPAN
+> Objekte im binarisierten Bild erkennbar sind. 
+
+
+Versuchen Sie zunächst eine Binarisierung mittels einer globalen Schwelle. Verwenden Sie zu deren Festlegung die Histogrammanzeige. Wenden Sie anschließend verschiedene Verfahren der adaptiven Binarisierung (Kommando
+	  <A
+HREF="kommand_help.html#ADABIN"
+TARGET="_top"
+>adabin</A
+>) an und
+vergleichen Sie die Ergebnisse. Welchen
+	  Einfluss haben die Fenstergröße und die eingestellte Differenz bei
+Anwendung des  Mean-Verfahrens auf das Binarisierungsergebnis? </P
+></LI
+></OL
+></DIV
+><DIV
+CLASS="CHAPTER"
+><HR><H1
+><A
+NAME="AEN82"
+></A
+>Kapitel 3. Filterung mittels Faltungsoperatoren</H1
+><P
+>Ziel des Versuches ist es, die Wirkung verschiedener Filter auf
+      Grauwert-/Farbbilder zu untersuchen</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Vergleichen Sie die Wirkung verschiedener Filter zur
+	    Bildglättung: Mittelwert-, Gauss- und MEDIAN-Filter (3x3
+	    Fenster). Gehen Sie immer vom gleichen Originalbild
+	  <TT
+CLASS="FILENAME"
+>kruemmer.bmp</TT
+> aus. Achten Sie beim Vergleich auf
+	  die Veränderung von Kanten und Linien. Im Bild
+	  <TT
+CLASS="FILENAME"
+>kruemmer.bmp</TT
+> ist eine schwarze Linie
+	  als Störung (Ausfall einer Sensorzeile) vorhanden. Welcher Filter ist
+	  am besten  geeignet, diese Störung zu beseitigen? </P
+></LI
+><LI
+><P
+>	Wählen Sie eine Faltungsmaske, die geeignet ist, horizontale
+	bzw. vertikale Strukturen aus einem Bild zu liefern. Verwenden Sie dazu
+	  die Bilddatei <TT
+CLASS="FILENAME"
+>lp.bmp</TT
+>.</P
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Tipp"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><B
+>Hinweis:</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>	    Sie können eine eigene Faltungsmaske anwenden, indem Sie
+	    die Filterkoeffizienten der  letzten Maske in der Datei
+	    <TT
+CLASS="FILENAME"
+>fil_ko3.dat</TT
+> ändern. Beachten Sie das die 
+	      Ableitungen auch negative Werte annehmen kann.</P
+></TD
+></TR
+></TABLE
+></DIV
+></LI
+><LI
+><P
+>Erhöhen Sie die Schärfe des Bildes
+	  <TT
+CLASS="FILENAME"
+>burg.bmp</TT
+>. Vergleichen Sie die Ergebnisse
+	  folgender Verfahren:</P
+><P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>	      Subtraktion eines laplacegefilterten Bildes vom
+	      Originalbild,</P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>	    Anwendung einer umask-Maske als Faltungsoperator,</P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>	      Anhebung höherer Frequenzen durch einen Bandpass-Filter.
+	      (Kommando <A
+HREF="kommand_help.html#SHARP"
+TARGET="_top"
+>sharp</A
+>).</P
+></LI
+></UL
+><P
+>Vergleichen Sie dabei die Ergebnisse der Verwendung
+	  unterschiedlicher Laplace-Operatoren. Wodurch unterscheiden sich
+	  die Anwendung des Laplace- vom Bandpassfilters bezüglich der Unterdrückung von Rauschanteilen?</P
+></LI
+><LI
+><P
+>Erhöhen Sie die Schärfe des Farbbildes
+	  <TT
+CLASS="FILENAME"
+>patho3.bmp</TT
+>. Wenden Sie dazu den
+	  Verschärfungsoperator getrennt auf alle drei Farbauszüge (Rot, Grün
+	  und Blau) an.</P
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Tipp"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><B
+>Hinweise:</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>Nutzen Sie zur Trennung der Farbkanäle die Funktion
+		<A
+HREF="kommand_help.html#PICREAD"
+TARGET="_top"
+>picread</A
+> mit
+einem Farbmodell als Parameter.</P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>Zur Speicherung als Farbbild können Sie die Funktion
+		<A
+HREF="kommand_help.html#PICWRITE"
+TARGET="_top"
+>picwrite</A
+> mit
+dem aktuellen Farbmodell als Parameter verwenden.</P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>Farbbilder könne durch das Kommando
+		<A
+HREF="kommand_help.html#SHOW"
+TARGET="_top"
+>show</A
+> betrachtet
+		werden. Als Parameter 
+		müssen Sie das Farbmodell und die Bildnummern der Auszüge
+		angeben. Mit der rechten Maustaste kann das angezeigte Bild
+ebenfalls gespeichert werden.</P
+></LI
+></UL
+></TD
+></TR
+></TABLE
+></DIV
+></LI
+></OL
+></DIV
+><DIV
+CLASS="CHAPTER"
+><HR><H1
+><A
+NAME="MORPHO"
+></A
+>Kapitel 4. Morphometrische Filter</H1
+><P
+>Ziellstellung ist das Kennenlernen und Anwenden von Methoden zur
+      Filterung von Binärbildern. Insbesondere soll der Einfluss des
+      strukturierenden Elementes (SE) untersucht werden.</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>	Laden Sie das Bild <TT
+CLASS="FILENAME"
+>dj600.bmp</TT
+> und bilden Sie daraus
+	ein  Binärbild. Der Hintergrund muss für die Filterung schwarz
+	  sein. Die Binarisierung soll so erfolgen, dass möglichst wenige
+	  Störbereiche entstehen. Legen Sie die Binarisierungsschwelle genau in
+	  das Minimum zwischen den beiden Häufungsgebieten der
+	  Grauwertverteilung. Eliminieren Sie die restlichen Störungen durch
+	  Anwendung geeigneter morphometrischer Operationen
+	  (Erosion,Dilatation, Opening, Closing). Gleichzeitig sollen die
+	  Kanten der Objekte geglättet werden. Vergleichen Sie die
+	  Filterergebnisse bei Anwendung unterschiedlicher SE.</P
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Tipp"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><B
+>Hinweis:</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Die SE werden in der Datei
+	    <TT
+CLASS="FILENAME"
+>se.dat</TT
+> beschrieben. Weitere SE können mittels
+	    Texteditor hinzugefügt werden.</P
+></TD
+></TR
+></TABLE
+></DIV
+></LI
+><LI
+><A
+NAME="UMRISS"
+></A
+><P
+>Erzeugen Sie vom Bild
+	  <TT
+CLASS="FILENAME"
+>kl_m1.bmp</TT
+> ein binäres Umrissbild. Der
+	  Hintergrund soll  schwarz sein, die Umrisse weiss und
+	  geschlossen. Beschreiben Sie Ihre Vorgehensweise. Verwenden Sie als
+SE in einer 3x3 Maske eimal den kompletten Block und einmal ein Kreuz. Welchen
+Einfluss hat die Wahl des SE auf die Nachbarschaftsbeziehungen der 
+	  Linienpunkte? Verwenden Sie zur Linienbildung das Kommando <A
+HREF="kommand_help.html#MORPHO"
+TARGET="_top"
+>morpho</A
+> mit dem Operator
+	  'edge'. Durch welche morphologischen Grundoperationen kann die
+Kantenbildung ebenfalls  durchgeführt werden?</P
+></LI
+><LI
+><P
+>Erzeugen Sie aus dem Bild <TT
+CLASS="FILENAME"
+>raster.bmp</TT
+> ein
+	  Bin&auml;rbild, in dem nur die Kreuzungspunkte der Linien zu sehen
+	  sind. Binarisieren Sie in einem ersten Schritt das
+	  Grauwertbild. Entwickeln Sie ein geeignetes SE zur Filterung.</P
+></LI
+></OL
+></DIV
+><DIV
+CLASS="CHAPTER"
+><HR><H1
+><A
+NAME="AEN142"
+></A
+>Kapitel 5. Bildarithmetikfunktionen</H1
+><P
+>Zielstellung ist das Kennenlernen und Anwenden verschiedener
+      Verknüpfungoperatoren von mehreren Bildern.</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Laden Sie die Bilddateien <TT
+CLASS="FILENAME"
+>d1.bmp</TT
+> bis
+	  <TT
+CLASS="FILENAME"
+>d5.bmp</TT
+> (dunkle Aufnahmen der gleichen Szene) und
+	  addieren Sie diese miteinander. Führen Sie anschließend eine Kontrastverstärkung des Ergebnisbildes durch. 
+	  Worin besteht der Unterschied bei der Kontrastverstärkung eines einzelnen Bildes? 
+	  Führen Sie statt der Addition eine Mittelwertbildung über alle Bilder
+	  durch verbessern Sie ebenfalls den Kontrast. Vergleichen Sie das Ergebnisbild mit dem aus der Addition
+entstandene Bild. Welche qualitativen  Aussagen lassen sich
+	  zum Bildrauschen 
+	  ableiten?</P
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Tipp"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><B
+>Hinweis:</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>Für die Addition und Mittelwertbildung über die Bilder verwenden Sie das Kommando <A
+HREF="kommand_help.html#FOLGE"
+TARGET="_top"
+>folge</A
+>.</P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>Führen Sie die Kontrastverstärkung durch eine lineare Streckung der Grauwertverteilung durch.
+	                Verwenden Sie dazu die
+	                Kommandos <A
+HREF="kommand_help.html#GWM"
+TARGET="_top"
+>gwm</A
+>
+	                und <A
+HREF="kommand_help.html#LUTAP"
+TARGET="_top"
+>lutap</A
+>.</P
+></LI
+></UL
+></TD
+></TR
+></TABLE
+></DIV
+></LI
+><LI
+><P
+>Finden Sie eine Möglichkeit festzustellen, ob sich zwischen zwei
+Bildaufnahmen in einer Szene etwas verändert hat. Welche 
+	    Bildbearbeitungsoperationen sind dazu notwendig? Laden Sie dazu die
+	  Bilddateien <TT
+CLASS="FILENAME"
+>campus1.bmp</TT
+> und
+	  <TT
+CLASS="FILENAME"
+>campus2.bmp</TT
+>  und  stellen Sie fest wodurch sie
+	  sich unterscheiden. </P
+></LI
+><LI
+><P
+>Markieren Sie die Kanten der Objekte im Bild
+	<TT
+CLASS="FILENAME"
+>kl_m1.bmp</TT
+> einmal mit einer weissen und einmal mit
+	einer schwarzen Linie. Erzeugen Sie dazu ein Umrissbild (siehe auch
+	<A
+HREF="#MORPHO"
+>Kapitel 4</A
+> Aufgabe <A
+HREF="#UMRISS"
+>2</A
+>) und verknüpfen das Ergebnis mit dem
+	Originalbild. Zur Verknüpfung von Bildern können Sie das Kommando <A
+HREF="kommand_help.html#VERK"
+TARGET="_top"
+>verk</A
+> anwenden.</P
+></LI
+></OL
+></DIV
+><DIV
+CLASS="CHAPTER"
+><HR><H1
+><A
+NAME="AEN170"
+></A
+>Kapitel 6. Segmentierung von Binärbildern</H1
+><P
+>Zielstellung ist das Kennenlernen und Anwenden eines einfachen
+      regionenorientierten Segmentierungsverfahrens und der Untersuchung des
+      Einflusses der Festlegung von Nachbarschaftskriterien auf das
+      Segmentierungsergebnis </P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Laden Sie das Bild <TT
+CLASS="FILENAME"
+>korn1.bmp</TT
+> und bestimmen
+	  Sie mittels Segmentierung die Anzahl der Objekte. Gehen Sie in
+	  folgenden  Teilschritten vor: </P
+><P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>Bilddatei laden,</P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>Histogramm darstellen und die Binarisierungsschwelle
+		einstellen,</P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>Binärbild invertieren (Objekte müssen weiss sein),</P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>Segmentierungsfunktion <A
+HREF="kommand_help.html#SEG"
+TARGET="_top"
+>seg</A
+> anwenden. </P
+></LI
+></UL
+></LI
+><LI
+><P
+>Bestimmen Sie den Einfluss der Wahl der Nachbarschaftsbeziehung
+	  auf das Ergebnis der Segmentierung. Bilden Sie dazu ein binäres
+	  Linienbild. Segmentieren Sie dieses  Binärbild einmal mit der 4-er
+	  Nachbarschaft und einmal mit der 8-er Nachbarschaft.</P
+></LI
+></OL
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Tipp"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><B
+>Hinweis:</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Der Segmentierungsalgorithmus nimmt weisse Bildpunkte als
+	Objektpunke und schwarze Bildpunkte als Hintergrund an. Verwenden Sie
+als Linienbild ein Umrißbild aus <A
+HREF="#MORPHO"
+>Kapitel 4</A
+> Aufgabe <A
+HREF="#UMRISS"
+>2</A
+> mit den Randpunktnachbarschaften 4 und 8.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="CHAPTER"
+><HR><H1
+><A
+NAME="AEN194"
+></A
+>Kapitel 7. Merkmalsextraktion</H1
+><P
+>Es soll untersucht werden, welche geometrischen Merkmale geeignet
+      sind verschiedene Arten von Objekten zu unterscheiden.</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Bestimmen Sie von den Objekten im Bild
+	  <TT
+CLASS="FILENAME"
+>objekte.png</TT
+> alle möglichen geometrischen
+	  Merkmale (Merkmale 1 bis 13), die von der Funktion <A
+HREF="kommand_help.html#MERKEX"
+TARGET="_top"
+>merkex</A
+> berechnet werden
+	  können. Speichern Sie die berechnete Merkmalsliste ohne weitere
+Angabe von Optionen.</P
+></LI
+><LI
+><P
+>Wählen Sie zwei Merkmale aus, mit denen man alle
+	  unterschiedlichen Objektarten voneinander unterscheiden kann. Lassen
+	  Sie sich den Merkmalsraum dieser Merkmale mit der Funktion <A
+HREF="kommand_help.html#MERK2D"
+TARGET="_top"
+>merk2d</A
+> anzeigen.</P
+></LI
+><LI
+><P
+>Kennzeichnen Sie den Bereich im Merkmalsraum, der die
+	großen Muttern charakterisiert. Überprüfen Sie Ihre Wahl durch die
+	automatische Markierung der betreffenden Objekte im
+	  Ausgangsbild. Verwenden Sie dazu das Kommando <A
+HREF="kommand_help.html#MARK"
+TARGET="_top"
+>mark</A
+>. Sollte eine weitere
+Auswahl notwendig sein, müssen Sie von der vollständigen Merkmalsliste
+ausgehen. Entweder Sie laden die gespeicherte Merkmalsliste (Kommando <A
+HREF="kommand_help.html#LOADMLIST"
+TARGET="_top"
+>loadmlist</A
+>) oder rufen
+erneut das Kommando <A
+HREF="kommand_help.html#MERKEX"
+TARGET="_top"
+>merkex</A
+> auf.</P
+></LI
+></OL
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Tipp"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><B
+>Hinweise:</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>Wandeln Sie das Grauwertbild durch entsprechende
+Verarbeitungsschritte in ein Binärbild um (weiße Objekte auf schwarzen
+Hintergrund). Achten Sie dabei darauf, dass möglichst wenige Störungen auftreten.</P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>Zur Nutzung der Funktionen für die Merkmalsextraktion beachten
+	    Sie die Beschreibung der entspechenden Kommandos <A
+HREF="kommand_help.html#MASKINFO"
+TARGET="_top"
+>maskinfo</A
+>, <A
+HREF="kommand_help.html#SETMASK"
+TARGET="_top"
+>setmask</A
+> und <A
+HREF="kommand_help.html#SAVEMLIST"
+TARGET="_top"
+>savemlist</A
+>.</P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>Vor der Merkmalsbestimmung müssen die Binärbilder
+	    segmentiert werden.</P
+></LI
+></UL
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="CHAPTER"
+><HR><H1
+><A
+NAME="AEN222"
+></A
+>Kapitel 8. Farbraumsegmentierung / Pixelklassifikation</H1
+><P
+>Ziel ist die Anwendung von Farbräumen zur Klassifikation von Pixeln
+    mit ähnlichen Farbwerten.</P
+><P
+>Im vorliegenden Programm kann die Pixelklassifikation  mit maximal
+      2 Farbkanälen durchgeführt werden. Gehen Sie dabei in folgenden Schritten
+      vor: <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>Erzeugen Sie zwei Bilder, deren Grauwerte die zwei Merkmale für
+	    einen Bildpunkt darstellen sollen (z.B. den Rot- und Grün-Anteil in
+	    einem Farbbild).</P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>Erzeugen Sie mit dem Kommando <A
+HREF="kommand_help.html#PIXMERK"
+TARGET="_top"
+>pixmerk</A
+> ein neues Bild,
+	    welches den zweidimensionalen Merkmalsraum darstellt.</P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>Erhöhen Sie zur besseren Sichtbarkeit den Kontrast des
+	    Merkmalsraumbildes.</P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>Legen Sie im Merkmalsraum den Bereich fest, der die vorgegebene
+	    Eigenschaft (z.B. "dunkelblau") darstellt. Verwenden Sie dazu das
+	    Kommando     <A
+HREF="kommand_help.html#PROFIL"
+TARGET="_top"
+>profil
+	      point</A
+>.</P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>Führen Sie nun die eigentliche Klassifikation (Intervalltest)
+mit dem Kommando <A
+HREF="kommand_help.html#PIXKLAS"
+TARGET="_top"
+>pixklas</A
+>
+durch. Alle Bildpunkte deren Eigenschaften in den festgelegten Bereich fallen, 
+	    werden im 1. Bild weiss markiert.</P
+></LI
+></UL
+></P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Bestimmen Sie im Farbbild <TT
+CLASS="FILENAME"
+>sfb_plan.bmp</TT
+> die
+	  hellgrünen Regionen (z.B. Waldflächen). Welche Bildpunkteigenschaften
+	  charakterisieren am besten die Eigenschaft "hellgrün"? 
+	  Gehen Sie dabei von verschiedenen Farbmodellen aus (RGB, HSV).</P
+></LI
+><LI
+><P
+>Versuchen Sie die gleichen Bildregionen zu bestimmen, wenn das
+	  vorliegende Bild nur ein Grauwertbild ist. Laden Sie dazu das Bild
+	  mit dem  Kommando <A
+HREF="kommand_help.html#PICREAD"
+TARGET="_top"
+>picread</A
+> ohne Angabe eines Farbmodells. Das Farbbild wird
+	  dabei automatisch in ein Grauwertbild umgewandelt.</P
+></LI
+><LI
+><P
+>Bestimmen Sie über die Pixelklassifikation im Farbbild das
+	  Verhältnis von von Wald- und Wasserfläche  (ohne Flussläufe) im
+	  Bild. Beachten Sie, dass die Wasserflächen hellblau gekennzeichnet
+	  sind. Beschreiben Sie die einzelnen Schritte in der Verarbeitung der
+	  Zwischenbilder. Wie können hell- und dunkelblaue Bildpunkte
+	  unterschieden werden?</P
+></LI
+></OL
+></DIV
+></DIV
+></BODY
+></HTML
+>
